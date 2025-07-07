@@ -1,4 +1,4 @@
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 
 import { cn } from "~/lib/utils";
 import { navItems } from "~/lib/nav-links";
@@ -6,8 +6,11 @@ import { navItems } from "~/lib/nav-links";
 import Icon from "~/components/utils/icons";
 import { Button } from "~/components/ui/button";
 import { SheetClose } from "~/components/ui/sheet";
+import { IconText } from "../utils/icon-text";
 
 export const NavLinks = ({ mobile }: { mobile?: boolean }) => {
+  const navigate = useNavigate();
+
   const Wrapper = mobile ? SheetClose : "div";
 
   return (
@@ -17,31 +20,25 @@ export const NavLinks = ({ mobile }: { mobile?: boolean }) => {
           <Wrapper key={label} asChild>
             <NavLink to={`/dashboard${to}`}>
               {({ isActive }) => (
-                <div
-                  className={cn(
-                    "flex p-4 gap-4 border-b",
-                    mobile ? "p-4" : "px-4 py-2",
-                    isActive
-                      ? "text-primary border-l-6 border-l-primary/70"
-                      : "text-foreground/70"
-                  )}
-                >
-                  {<Icon name={icon} size={mobile ? 24 : 20} />}
-                  <span className={cn(mobile ? "text-base" : "text-sm", "font-light lg:font-normal")}>
-                    {label}
-                  </span>
-                </div>
+                <IconText
+                  icon={icon}
+                  text={label}
+                  active={isActive}
+                  className={cn(isActive && "border-l-4 border-l-primary/90")}
+                />
               )}
             </NavLink>
           </Wrapper>
         ))}
       </ul>
       <Button
-        variant={"ghost"}
+        // TODO: Implement logging out
+        onClick={() => navigate("/auth/login")}
         className={cn(
           mobile ? "h-15" : "h-12",
           "justify-start border-t gap-4 px-4  font-normal text-red-500"
         )}
+        variant={"ghost"}
       >
         {<Icon name={"logOut"} size={24} className="size-[21px] =" />}
         <span className="text-base font-light lg:font-normal">Log Out</span>

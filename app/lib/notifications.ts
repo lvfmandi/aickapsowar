@@ -81,29 +81,21 @@ export const notifications: Notification[] = [
   },
 ];
 
-export const getColor = (type: NotitificationTypes) => {
-  var color = "grey";
+export const getColor = (type: NotitificationTypes): string => {
   switch (type) {
     case "info":
-      color = "#0066CC";
-      break;
+      return "#3B82F6"; // Blue-500
     case "success":
-      color = "#00CC66";
-      break;
+      return "#10B981"; // Green-500
     case "warning":
-      color = "#CC6600";
-      break;
+      return "#F59E0B"; // Amber-500
     case "reminder":
-      color = "#CC0066";
-      break;
+      return "#EC4899"; // Pink-500
     case "attached":
-      color = "#6600CC";
-      break;
+      return "#8B5CF6"; // Violet-500
     case "date":
-      color = "#66CC00";
-      break;
+      return "#22C55E"; // Lime/Green-500
     default:
-      break;
+      return "#9CA3AF"; // Gray-400 (default)
   }
-  return color;
 };

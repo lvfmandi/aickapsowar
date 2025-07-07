@@ -10,6 +10,11 @@ export const navItems: NavItem[] = [
   },
   {
     to: "/units",
+    icon: "wallet",
+    label: "Finances",
+  },
+  {
+    to: "/units",
     icon: "layers",
     label: "Units",
   },

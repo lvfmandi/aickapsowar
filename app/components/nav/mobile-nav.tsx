@@ -6,7 +6,7 @@ import { MobileNavMenu } from "~/components/nav/mobile-nav-menu";
 
 export const MobileNav = () => {
   return (
-    <div className="container flex items-center py-4 gap-4 justify-between lg:px-0 lg:hidden border-b">
+    <div className="sticky inset-0 bottom-auto bg-background/50 z-50 backdrop-blur-md container flex items-center py-4 gap-4 justify-between lg:px-0 lg:hidden border-b">
       <Logo
         image={{ className: "size-8" }}
         text={{ className: "text-[9px]" }}

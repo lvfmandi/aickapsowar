@@ -7,7 +7,7 @@ export default function DashboardLayout() {
   return (
     <div className="flex flex-col h-screen max-h-screen lg:grid lg:grid-cols-[288px_auto]">
       <DashboardNav />
-      <div className="flex flex-col h-screen max-h-screen">
+      <div className="flex flex-col h-screen max-h-screen overflow-hidden">
         <FastActions />
         <Outlet />
       </div>

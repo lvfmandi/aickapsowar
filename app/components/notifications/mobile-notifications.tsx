@@ -24,7 +24,7 @@ export const MobileNotifications = () => {
       </SheetTrigger>
       <SheetContent className="gap-0">
         <SheetHeader className="py-5 border-b">
-          <SheetTitle className="text-2xl font-thin">Notifications</SheetTitle>
+          <SheetTitle className="text-2xl font-light">Notifications</SheetTitle>
         </SheetHeader>
         <SheetDescription className="h-full overflow-y-auto">
           <Notifications />
