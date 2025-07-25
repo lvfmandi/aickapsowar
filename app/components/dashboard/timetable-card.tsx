@@ -1,15 +1,15 @@
 import Icon from "~/components/utils/icons";
 import { Button } from "~/components/ui/button";
-import { percentageFormarter } from "~/lib/formarterts";
+import { cn } from "~/lib/utils";
 
-type FinanceData = {
+type TimetableData = {
   label: string;
-  number: number;
-  completed?: boolean;
+  active?: boolean;
+  description: string;
 };
 
-export const LectureCard = ({ data }: { data: FinanceData }) => {
-  const { label, number, completed } = data;
+export const TimetableCard = ({ data }: { data: TimetableData }) => {
+  const { label, description, active } = data;
   return (
     <li
       key={label}
@@ -17,7 +17,7 @@ export const LectureCard = ({ data }: { data: FinanceData }) => {
     >
       <div className="flex items-start gap-2">
         <h4 className="text-base font-light">{label}</h4>
-        {completed && (
+        {active && (
           <Icon
             name="verified"
             className="fill-blue-500 text-background dark:text-gray-300 size-4"
@@ -28,17 +28,18 @@ export const LectureCard = ({ data }: { data: FinanceData }) => {
         <Button
           className="w-full"
           variant={"outline"}
-          disabled={!Boolean(completed)}
+          disabled={!Boolean(active)}
         >
           <Icon name="print" />
           Print
         </Button>
-        <p className="font-mono text-[10px] text-foreground/50">
-          At least{" "}
-          <span className="text-foreground font-medium">
-            {percentageFormarter(number / 100)}
-          </span>{" "}
-          of fees has to be completed
+        <p
+          className={cn(
+            "font-mono text-[10px]",
+            active ? "text-foreground" : "font-medium text-foreground/50"
+          )}
+        >
+          {description}
         </p>
       </div>
     </li>

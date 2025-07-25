@@ -9,7 +9,7 @@ export const navItems: NavItem[] = [
     label: "Dashboard",
   },
   {
-    to: "/units",
+    to: "/finances",
     icon: "wallet",
     label: "Finances",
   },
@@ -24,8 +24,13 @@ export const navItems: NavItem[] = [
     label: "Lecture Cards",
   },
   {
+    to: "/timetable",
+    icon: "calendar",
+    label: "Timetable",
+  },
+  {
     to: "/grades",
-    icon: "document",
+    icon: "receipt",
     label: "Grades",
   },
   {
@@ -34,7 +39,7 @@ export const navItems: NavItem[] = [
     label: "Hostel Booking",
   },
   {
-    to: "/academic-requision",
+    to: "/academic-requisition",
     icon: "send",
     label: "Academic Requisition",
   },
@@ -42,6 +47,11 @@ export const navItems: NavItem[] = [
     to: "/graduation",
     icon: "school",
     label: "Graduation",
+  },
+  {
+    to: "/suggestion-box",
+    icon: "chatbox",
+    label: "Suggestion Box",
   },
   {
     to: "/account-management",

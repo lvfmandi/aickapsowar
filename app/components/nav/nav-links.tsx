@@ -6,18 +6,19 @@ import { navItems } from "~/lib/nav-links";
 import Icon from "~/components/utils/icons";
 import { Button } from "~/components/ui/button";
 import { SheetClose } from "~/components/ui/sheet";
-import { IconText } from "../utils/icon-text";
+import { IconText } from "~/components/utils/icon-text";
 
 export const NavLinks = ({ mobile }: { mobile?: boolean }) => {
   const navigate = useNavigate();
 
   const Wrapper = mobile ? SheetClose : "div";
+  const wrapperProps = Wrapper === "div" ? {} : { asChild: true };
 
   return (
     <div className="flex flex-col justify-between h-full">
       <ul>
         {navItems.map(({ to, icon, label }) => (
-          <Wrapper key={label} asChild>
+          <Wrapper key={label} {...wrapperProps}>
             <NavLink to={`/dashboard${to}`}>
               {({ isActive }) => (
                 <IconText

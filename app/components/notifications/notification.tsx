@@ -8,8 +8,8 @@ import {
 import { cn } from "~/lib/utils";
 
 import Icon from "~/components/utils/icons";
-import { Button, buttonVariants } from "~/components/ui/button";
-import { Badge } from "../ui/badge";
+import { Badge } from "~/components/ui/badge";
+import { buttonVariants } from "~/components/ui/button";
 
 export const Notification = ({
   notification,
@@ -39,7 +39,11 @@ export const Notification = ({
         <p className="text-xs text-foreground/50">{description}</p>
         <div className="flex items-center flex-wrap gap-4">
           {Boolean(attached) && (
-            <Badge asChild variant={"outline"} className="w-9 h-9 rounded-full group">
+            <Badge
+              asChild
+              variant={"outline"}
+              className="w-9 h-9 rounded-full group"
+            >
               <Link to={attached || ""}>
                 <Icon
                   name={"cloudDownload"}

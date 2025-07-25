@@ -15,9 +15,8 @@ export const currencyFormarter = (amount: number) => {
 };
 
 export const numberFormarter = (amount: number) => {
-  const number = 1234567.89;
   const formatter = new Intl.NumberFormat("en-US");
-  return formatter.format(number);
+  return formatter.format(amount);
 };
 
 export const compactFormarter = (number: number) => {

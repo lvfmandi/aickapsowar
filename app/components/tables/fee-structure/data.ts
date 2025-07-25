@@ -1,0 +1,88 @@
+import type { FeeStructure } from "./columns";
+
+export const data: FeeStructure[] = [
+  {
+    stage: "Y1S1",
+    programCode: "BSCS",
+    postingDate: "2024-08-01",
+    tuitionFees: 45000,
+    totalFees: 55000,
+  },
+  {
+    stage: "Y1S2",
+    programCode: "BSCS",
+    postingDate: "2025-01-05",
+    tuitionFees: 45000,
+    totalFees: 54000,
+  },
+  {
+    stage: "Y1S3",
+    programCode: "BSCS",
+    postingDate: "2025-05-10",
+    tuitionFees: 40000,
+    totalFees: 49000,
+  },
+  {
+    stage: "Y2S1",
+    programCode: "BSCS",
+    postingDate: "2025-08-01",
+    tuitionFees: 47000,
+    totalFees: 58000,
+  },
+  {
+    stage: "Y2S2",
+    programCode: "BSCS",
+    postingDate: "2026-01-05",
+    tuitionFees: 47000,
+    totalFees: 57000,
+  },
+  {
+    stage: "Y2S3",
+    programCode: "BSCS",
+    postingDate: "2026-05-10",
+    tuitionFees: 42000,
+    totalFees: 51000,
+  },
+  {
+    stage: "Y3S1",
+    programCode: "BSCS",
+    postingDate: "2026-08-01",
+    tuitionFees: 50000,
+    totalFees: 61000,
+  },
+  {
+    stage: "Y3S2",
+    programCode: "BSCS",
+    postingDate: "2027-01-05",
+    tuitionFees: 50000,
+    totalFees: 60000,
+  },
+  {
+    stage: "Y3S3",
+    programCode: "BSCS",
+    postingDate: "2027-05-10",
+    tuitionFees: 45000,
+    totalFees: 54000,
+  },
+  {
+    stage: "Y4S1",
+    programCode: "BSCS",
+    postingDate: "2027-08-01",
+    tuitionFees: 52000,
+    totalFees: 63000,
+  },
+  {
+    stage: "Y4S2",
+    programCode: "BSCS",
+    postingDate: "2028-01-05",
+    tuitionFees: 52000,
+    totalFees: 62000,
+  },
+  {
+    stage: "Y4S3",
+    programCode: "BSCS",
+    postingDate: "2028-05-10",
+    tuitionFees: 47000,
+    totalFees: 56000,
+  },
+];
