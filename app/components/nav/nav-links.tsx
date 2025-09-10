@@ -1,8 +1,10 @@
+import { toast } from "sonner";
 import { NavLink, useNavigate } from "react-router";
+
+import { logout } from "~/api/auth/logout";
 
 import { cn } from "~/lib/utils";
 import { navItems } from "~/lib/nav-links";
-
 import Icon from "~/components/utils/icons";
 import { Button } from "~/components/ui/button";
 import { SheetClose } from "~/components/ui/sheet";
@@ -13,6 +15,17 @@ export const NavLinks = ({ mobile }: { mobile?: boolean }) => {
 
   const Wrapper = mobile ? SheetClose : "div";
   const wrapperProps = Wrapper === "div" ? {} : { asChild: true };
+
+  const handleLogout = async () => {
+    const { data, error } = await logout();
+
+    if (error) toast.error(error);
+
+    if (data) {
+      toast.success(data);
+      navigate("/auth/login");
+    }
+  };
 
   return (
     <div className="flex flex-col justify-between h-full">
@@ -34,7 +47,7 @@ export const NavLinks = ({ mobile }: { mobile?: boolean }) => {
       </ul>
       <Button
         // TODO: Implement logging out
-        onClick={() => navigate("/auth/login")}
+        onClick={handleLogout}
         className={cn(
           mobile ? "h-15" : "h-12",
           "justify-start border-t gap-4 px-4  font-normal text-red-500"

@@ -2,14 +2,19 @@ import Icon from "~/components/utils/icons";
 import { Button } from "~/components/ui/button";
 import { percentageFormarter } from "~/lib/formarterts";
 
-type FinanceData = {
+type LectureCard = {
   label: string;
   number: number;
   completed?: boolean;
 };
 
-export const LectureCard = ({ data }: { data: FinanceData }) => {
+export const LectureCard = ({ data }: { data: LectureCard }) => {
   const { label, number, completed } = data;
+
+  const handlePrint = () => {
+    console.log(data);
+  };
+
   return (
     <li
       key={label}
@@ -28,6 +33,7 @@ export const LectureCard = ({ data }: { data: FinanceData }) => {
         <Button
           className="w-full"
           variant={"outline"}
+          onClick={handlePrint}
           disabled={!Boolean(completed)}
         >
           <Icon name="print" />

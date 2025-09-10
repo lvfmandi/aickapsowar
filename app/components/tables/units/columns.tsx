@@ -18,28 +18,21 @@ import Icon from "~/components/utils/icons";
 import { Button } from "~/components/ui/button";
 import { useUnits } from "~/components/hooks/units";
 import { DataTableColumnHeader } from "~/components/tables/utils/column-header";
+import type { Stage } from "~/lib/types/units";
 
-export type UnitsPerSemester = {
-  program: string;
-  stage: string;
-  semester: string;
-  regFor: string;
-  modeOfStudy: string;
-  unitsTaken: number;
-};
-
-const digitCell: (
-  props: CellContext<UnitsPerSemester, unknown>
-) => React.ReactNode = ({ getValue }) => (
+const digitCell: (props: CellContext<Stage, unknown>) => React.ReactNode = ({
+  getValue,
+}) => (
   <span className="inline-table font-mono text-xs font-light">
     {numberFormarter(getValue() as number) as string}
   </span>
 );
 
 // TODO: Make sure all the actions work
-const actionsCell: (
-  props: CellContext<UnitsPerSemester, unknown>
-) => React.ReactNode = ({ row, getValue }) => {
+const actionsCell: (props: CellContext<Stage, unknown>) => React.ReactNode = ({
+  row,
+  getValue,
+}) => {
   // TODO: Here we will make sure we show the correct unit
   const { setShowUnits } = useUnits();
 
@@ -68,16 +61,16 @@ const actionsCell: (
   );
 };
 
-const columnHelper = createColumnHelper<UnitsPerSemester>();
+const columnHelper = createColumnHelper<Stage>();
 
-export const columns: ColumnDef<UnitsPerSemester, any>[] = [
+export const columns: ColumnDef<Stage, any>[] = [
   columnHelper.display({
     id: "actions",
     header: "Actions",
     cell: actionsCell,
     enableSorting: false,
   }),
-  columnHelper.accessor("program", {
+  columnHelper.accessor("programme", {
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Program" />
     ),
@@ -98,21 +91,21 @@ export const columns: ColumnDef<UnitsPerSemester, any>[] = [
     cell: (info) => info.getValue(),
     enableSorting: true,
   }),
-  columnHelper.accessor("regFor", {
+  columnHelper.accessor("register_for", {
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Registered For" />
     ),
     cell: (info) => info.getValue(),
     enableSorting: true,
   }),
-  columnHelper.accessor("modeOfStudy", {
+  columnHelper.accessor("mode_of_Study", {
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Mode of Study" />
     ),
     cell: (info) => info.getValue(),
     enableSorting: true,
   }),
-  columnHelper.accessor("unitsTaken", {
+  columnHelper.accessor("units_Taken", {
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Units Taken" />
     ),

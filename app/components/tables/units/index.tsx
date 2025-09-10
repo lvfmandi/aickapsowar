@@ -1,8 +1,6 @@
-import {
-  columns,
-  type UnitsPerSemester,
-} from "~/components/tables/units/columns";
+import type { Stage } from "~/lib/types/units";
 import type { Icons } from "~/components/utils/icons";
+import { columns } from "~/components/tables/units/columns";
 import { DataTable } from "~/components/tables/utils/data-table";
 
 export const UnitsTable = ({
@@ -10,8 +8,8 @@ export const UnitsTable = ({
   emptyIcon,
   emptyPhrase,
 }: {
+  data: Stage[];
   emptyPhrase?: string;
-  data: UnitsPerSemester[];
   emptyIcon?: keyof typeof Icons;
 }) => {
   return (

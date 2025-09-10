@@ -1,17 +1,23 @@
+import type { ButtonHTMLAttributes } from "react";
+
+import { Button } from "~/components/ui/button";
 import Icon, { Icons } from "~/components/utils/icons";
 import { IconText } from "~/components/utils/icon-text";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 
 export type TabItem = {
-  icon: keyof typeof Icons;
   value: string;
   label: string;
+  icon: keyof typeof Icons;
   content: React.ReactNode;
+  button?: Partial<ButtonHTMLAttributes<HTMLButtonElement>>;
 };
 
 type TabUtils = { data: TabItem[] };
 
 export const TabsUtils = ({ data }: TabUtils) => {
+  console.log({ data });
+
   return (
     <Tabs defaultValue={data[0].value} className="p-4 w-full">
       <TabsList className="flex-wrap h-fit">
@@ -26,9 +32,19 @@ export const TabsUtils = ({ data }: TabUtils) => {
           </TabsTrigger>
         ))}
       </TabsList>
-      {data.map(({ icon, label, value, content }) => (
+      {data.map(({ icon, label, value, button, content }) => (
         <TabsContent key={value} value={value} className="h-full">
-          <IconText active text={label} icon={icon} className="lg:px-3" />
+          <div className="flex items-center justify-between border-b">
+            <IconText
+              active
+              text={label}
+              icon={icon}
+              className="lg:px-3 border-b-0"
+            />
+            {button && (
+              <Button variant="outline" onClick={button?.onClick} {...button} />
+            )}
+          </div>
           {content}
         </TabsContent>
       ))}

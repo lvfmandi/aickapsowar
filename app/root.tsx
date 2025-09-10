@@ -6,16 +6,37 @@ import {
   ScrollRestoration,
   isRouteErrorResponse,
 } from "react-router";
+import axios from "axios";
+
+import { API_URL } from "./api/urls";
+import { refresh } from "./api/auth/refresh-token";
 
 import "~/app.css";
 import type { Route } from "./+types/root";
+import { Toaster } from "~/components/ui/sonner";
+
+axios.defaults.baseURL = API_URL;
+axios.defaults.withCredentials = true;
+
+// axios.interceptors.response.use(
+//   function onFulfilled(response) {
+//     return response;
+//   },
+//   async function onRejected(error) {
+//     if (error.response.status === 401) {
+//       console.log({ status: error.response.status });
+//       await refresh();
+//     }
+//     return error;
+//   }
+// );
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   {
     rel: "preconnect",
-    href: "https://fonts.gstatic.com",
     crossOrigin: "anonymous",
+    href: "https://fonts.gstatic.com",
   },
   {
     rel: "stylesheet",
@@ -46,13 +67,18 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <>
+      <Outlet />
+      <Toaster richColors position="top-center" />
+    </>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   let message = "Oops!";
-  let details = "An unexpected error occurred.";
   let stack: string | undefined;
+  let details = "An unexpected error occurred.";
 
   if (isRouteErrorResponse(error)) {
     message = error.status === 404 ? "404" : "Error";

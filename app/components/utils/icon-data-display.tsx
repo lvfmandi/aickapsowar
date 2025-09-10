@@ -1,5 +1,6 @@
-import Icon, { Icons } from "~/components/utils/icons";
 import { cn } from "~/lib/utils";
+
+import Icon, { Icons } from "~/components/utils/icons";
 
 export type IconData = {
   monoFont?: boolean;

@@ -11,8 +11,10 @@ import { Logo } from "~/components/utils/logo";
 export const AuthFormWrapper = ({
   title,
   children,
+  description,
 }: {
   title: string;
+  description?: string;
   children: ReactNode;
 }) => {
   return (
@@ -20,6 +22,7 @@ export const AuthFormWrapper = ({
       <Logo text={{}} image={{ className: "size-14" }} />
       <div className="grid gap-4">
         <h1 className="text-3xl font-light">{title}</h1>
+        {Boolean(description) && <small>{description}</small>}
         {children}
       </div>
       <Copy />

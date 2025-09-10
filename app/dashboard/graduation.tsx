@@ -1,5 +1,3 @@
-import { currencyFormarter } from "~/lib/formarterts";
-
 import { Button } from "~/components/ui/button";
 import {
   IconDataDisplay,
@@ -7,6 +5,7 @@ import {
 } from "~/components/utils/icon-data-display";
 import { TabsUtils, type TabItem } from "~/components/utils/tabs-utils";
 import { DashbaordContentLayout } from "~/components/dashboard/content-layout";
+import { Graduation as GraduationTable } from "~/components/tables/graduation";
 import { DesktopNotifications } from "~/components/notifications/desktop-notifications";
 
 export default function Graduation() {
@@ -34,11 +33,11 @@ export default function Graduation() {
     {
       icon: "school",
       value: "applyGraduation",
-      label: "Apply for Graduation",
+      label: "1. Apply for Graduation",
       content: (
         <div className="grid gap-4 py-4">
           <Button disabled className="w-full max-w-[240px]">
-            Apply for Graduation
+            1. Apply for Graduation
           </Button>
           <IconDataDisplay data={iconData} icon={"school"} />
         </div>
@@ -47,21 +46,24 @@ export default function Graduation() {
     {
       icon: "checkmark",
       value: "clearanceRequest",
-      label: "Clearance Request",
+      label: "2. Clearance Request",
       content: (
         <div className="grid gap-4 py-4">
           <Button className="w-full max-w-[240px]">Clearance Request</Button>
+          <GraduationTable />
         </div>
       ),
     },
     {
       icon: "cloudDownload",
       value: "downloadClearanceForm",
-      label: "Download Clearance Form",
+      label: "3. Download Clearance Form",
       content: (
-        <Button disabled className="w-full">
-          Download Clearance Form
-        </Button>
+        <div className="grid gap-4 py-4">
+          <Button className="w-full max-w-[240px]">
+            Download Clearance Form
+          </Button>
+        </div>
       ),
     },
   ];
