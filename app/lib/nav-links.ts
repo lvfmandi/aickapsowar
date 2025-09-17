@@ -28,11 +28,11 @@ export const navItems: NavItem[] = [
   //   icon: "calendar",
   //   label: "Timetable",
   // },
-  // {
-  //   to: "/grades",
-  //   icon: "receipt",
-  //   label: "Grades",
-  // },
+  {
+    to: "/grades",
+    icon: "receipt",
+    label: "Grades",
+  },
   {
     to: "/hostel-booking",
     icon: "bed",
@@ -53,9 +53,9 @@ export const navItems: NavItem[] = [
   //   icon: "chatbox",
   //   label: "Suggestion Box",
   // },
-  // {
-  //   to: "/account-management",
-  //   icon: "personCircle",
-  //   label: "Account Management",
-  // },
+  {
+    to: "/account-management",
+    icon: "personCircle",
+    label: "Account Management",
+  },
 ];

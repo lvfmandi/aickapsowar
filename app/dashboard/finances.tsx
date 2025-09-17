@@ -1,5 +1,12 @@
+import { toast } from "sonner";
+
 import { financeData } from "~/lib/dashboard.data";
 
+import { getReceipts } from "~/api/finance/getReceipts";
+import { getFeeStatement } from "~/api/finance/getFeeStatement";
+import { getFeeStructure } from "~/api/finance/getFeeStructure";
+
+import type { Route } from "./+types/finances";
 import { Receipts } from "~/components/tables/receipts";
 import { FeeStatement } from "~/components/tables/fee-statement";
 import { FeeStructure } from "~/components/tables/fee-structure";
@@ -9,25 +16,40 @@ import { DashboardCardSection } from "~/components/dashboard/card-section";
 import { DashbaordContentLayout } from "~/components/dashboard/content-layout";
 import { DesktopNotifications } from "~/components/notifications/desktop-notifications";
 
-export default function Finances() {
+export const clientLoader = async ({}: Route.ClientLoaderArgs) => {
+  const [
+    { data: receipts = [], error: receiptsError },
+    { data: feeStatement = [], error: feeStatementError },
+    { data: feeStructure = [], error: feeStructureError },
+  ] = await Promise.all([getReceipts(), getFeeStatement(), getFeeStructure()]);
+
+  const baseError = receiptsError ?? feeStatementError ?? feeStructureError;
+  if (baseError) toast.error(baseError);
+
+  return { receipts, feeStatement, feeStructure };
+};
+
+export default function Finances({ loaderData }: Route.ComponentProps) {
+  const { receipts, feeStatement, feeStructure } = loaderData;
+
   const financeTabs: TabItem[] = [
     {
       icon: "documentText",
       value: "feeStatement",
       label: "Fee Statement",
-      content: <FeeStatement />,
+      content: <FeeStatement data={feeStatement} />,
     },
     {
       icon: "receipt",
       value: "receipts",
       label: "Receipts",
-      content: <Receipts />,
+      content: <Receipts data={receipts} />,
     },
     {
       icon: "reader",
       value: "feeStructure",
       label: "Fee Structure",
-      content: <FeeStructure />,
+      content: <FeeStructure data={feeStructure} />,
     },
   ];
 

@@ -3,8 +3,10 @@ import {
   type ColumnDef,
   createColumnHelper,
 } from "@tanstack/react-table";
+import { useState } from "react";
 import { MoreHorizontal } from "lucide-react";
 
+import type { Stage } from "~/lib/types/units";
 import { numberFormarter } from "~/lib/formarterts";
 
 import {
@@ -12,13 +14,10 @@ import {
   DropdownMenuLabel,
   DropdownMenuContent,
   DropdownMenuTrigger,
-  DropdownMenuCheckboxItem,
 } from "~/components/ui/dropdown-menu";
-import Icon from "~/components/utils/icons";
 import { Button } from "~/components/ui/button";
-import { useUnits } from "~/components/hooks/units";
 import { DataTableColumnHeader } from "~/components/tables/utils/column-header";
-import type { Stage } from "~/lib/types/units";
+import { SemesterUnitsDrawer } from "~/components/dashboard/semester-units-drawer";
 
 const digitCell: (props: CellContext<Stage, unknown>) => React.ReactNode = ({
   getValue,
@@ -28,34 +27,26 @@ const digitCell: (props: CellContext<Stage, unknown>) => React.ReactNode = ({
   </span>
 );
 
-// TODO: Make sure all the actions work
 const actionsCell: (props: CellContext<Stage, unknown>) => React.ReactNode = ({
   row,
-  getValue,
 }) => {
-  // TODO: Here we will make sure we show the correct unit
-  const { setShowUnits } = useUnits();
+  const [open, setOpen] = useState(false);
 
   return (
-    <DropdownMenu>
+    <DropdownMenu open={open} onOpenChange={(open) => setOpen(open)}>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="h-8 w-8 p-0">
+        <Button
+          variant="ghost"
+          className="h-8 w-8 p-0"
+          onClick={() => setOpen(true)}
+        >
           <span className="sr-only">Open menu</span>
           <MoreHorizontal className="h-4 w-4" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start">
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-        <DropdownMenuCheckboxItem
-          className="capitalize p-2 py-[6px] text-[13px] cursor-default hover:bg-accent hover:text-primary"
-          onCheckedChange={() => {
-            setShowUnits(true);
-            console.log({ value: row.getValue("stage") });
-          }}
-        >
-          <Icon name={"eye"} />
-          View Units
-        </DropdownMenuCheckboxItem>
+        <SemesterUnitsDrawer record={row} setOpen={setOpen} />
       </DropdownMenuContent>
     </DropdownMenu>
   );

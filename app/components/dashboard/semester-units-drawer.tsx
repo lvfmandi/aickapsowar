@@ -1,38 +1,97 @@
+import { toast } from "sonner";
+import type { Row } from "@tanstack/react-table";
+import { useEffect, useTransition, type Dispatch } from "react";
+
+import { getStudentUnitsByStage } from "~/api/units/getStudentUnitsByStage";
+
+import { NORMAL } from "~/lib/utils";
+import { useStore } from "~/lib/store/index.store";
+import type { Stage, MergedUnit } from "~/lib/types/units";
+
 import {
   Drawer,
   DrawerTitle,
   DrawerHeader,
   DrawerContent,
+  DrawerTrigger,
 } from "~/components/ui/drawer";
-import { useUnits } from "~/components/hooks/units";
-import { semesterUnits } from "~/components/tables/semester-units/data";
+import Icon from "~/components/utils/icons";
+import { Button } from "~/components/ui/button";
+import { LoaderImage } from "~/components/utils/loader";
 import { SemesterUnitsTable } from "~/components/tables/semester-units";
-import { Button } from "../ui/button";
-import Icon from "../utils/icons";
 
-export const SemesterUnitsDrawer = () => {
-  const { showUnits, setShowUnits } = useUnits();
+export const SemesterUnitsDrawer = ({
+  record,
+  setOpen,
+}: {
+  record: Row<Stage>;
+  setOpen: Dispatch<React.SetStateAction<boolean>>;
+}) => {
+  const stage = record.original;
+  const [isPending, startTransition] = useTransition();
+  const {
+    currentStage,
+    currentUnits,
+    programUnits,
+    studentUnits,
+    currentUnitTab,
+    setCurrentUnits,
+  } = useStore((state) => state);
+
+  function mergedUnits(): MergedUnit[] {
+    const studentCodes = new Set(studentUnits.map((s) => s.code));
+
+    return programUnits.map((pu) => ({
+      ...pu,
+      take: studentCodes.has(pu.code),
+    }));
+  }
+
+  useEffect(() => {
+    startTransition(async () => {
+      if (currentUnitTab == NORMAL) {
+        setCurrentUnits(mergedUnits());
+      } else {
+        const { data, error } = await getStudentUnitsByStage({
+          stageCode: stage.stage,
+        });
+
+        if (error) toast.error(error);
+        if (data) setCurrentUnits(data);
+      }
+    });
+  }, [stage, studentUnits, programUnits, currentStage]);
 
   return (
-    <Drawer open={showUnits}>
+    <Drawer onClose={() => setOpen(false)}>
+      <DrawerTrigger asChild>
+        <Button
+          variant={"ghost"}
+          className="capitalize p-2 py-[6px] text-[13px] cursor-default hover:bg-accent hover:text-primary"
+        >
+          <Icon name={"eye"} />
+          View Units
+        </Button>
+      </DrawerTrigger>
       <DrawerContent className="container">
         <DrawerHeader>
-          <DrawerTitle className="text-start flex justify-between items-center">
-            <span>Y1S1 Normal Units</span>
-            <Button
-              size={"icon"}
-              variant={"outline"}
-              onClick={() => setShowUnits(false)}
-            >
-              <Icon name="close" color="red" />
-            </Button>
+          <DrawerTitle className="text-start">
+            <span>
+              {stage.stage} {stage.semester}
+            </span>
           </DrawerTitle>
-          <SemesterUnitsTable
-            emptyIcon="fileTray"
-            // TODO: We ought to add units based on the clicked column
-            data={semesterUnits}
-            emptyPhrase="There are no units for this semester"
-          />
+          {isPending ? (
+            <div className="flex items-center gap-4">
+              <LoaderImage />
+              <span>Loading ...</span>
+            </div>
+          ) : (
+            <SemesterUnitsTable
+              data={currentUnits}
+              emptyIcon="fileTray"
+              emptyPhrase="There are no units for this semester"
+            />
+          )}
         </DrawerHeader>
       </DrawerContent>
     </Drawer>

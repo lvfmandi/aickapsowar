@@ -1,27 +1,28 @@
 import axios, { AxiosError } from "axios";
 
-import { DROP_UNIT } from "~/api/urls";
+import { GET_PROVISIONAL_RESULTS } from "~/api/urls";
 
 import type { ApiResponse } from "~/lib/types";
-import type { StudentUnit } from "~/lib/types/units";
 
-interface DropUnit {
-  unitCode: string;
+export interface GetProvisionalResults {
+  stage: string;
 }
 
-export const dropUnit = async ({
-  unitCode,
-}: DropUnit): Promise<ApiResponse<StudentUnit[]>> => {
+export const getProvisionalResults = async ({
+  stage,
+}: GetProvisionalResults): Promise<ApiResponse<string>> => {
   try {
     const response = await axios.post(
-      DROP_UNIT,
-      { unitCode },
+      GET_PROVISIONAL_RESULTS,
+      {
+        stage,
+      },
       {
         withCredentials: true,
       }
     );
 
-    return { data: response.data || false };
+    return { data: response.data.base64 || "" };
   } catch (err) {
     const error = err as AxiosError<{ error: string; errors: string }>;
     return {

@@ -1,25 +1,34 @@
-import {
-  officialGrades,
-  provisionalGrades,
-} from "~/components/tables/grades/data";
+import { toast } from "sonner";
+
+import { getStudentStages } from "~/api/units/getStudentStages";
+
+import type { Route } from "./+types/grades";
 import { Grades as GradesTable } from "~/components/tables/grades";
 import { TabsUtils, type TabItem } from "~/components/utils/tabs-utils";
 import { DashbaordContentLayout } from "~/components/dashboard/content-layout";
 import { DesktopNotifications } from "~/components/notifications/desktop-notifications";
 
-export default function Grades() {
+export const clientLoader = async () => {
+  const { data: stages, error } = await getStudentStages();
+  if (error) toast.error(error);
+  return { stages };
+};
+
+export default function Grades({ loaderData }: Route.ComponentProps) {
+  const { stages = [] } = loaderData;
+
   const financeTabs: TabItem[] = [
     {
       icon: "receipt",
       value: "provisionalTranscripts",
       label: "Provisional Transcripts",
-      content: <GradesTable data={provisionalGrades} />,
+      content: <GradesTable data={stages} />,
     },
     {
       icon: "receipt",
       value: "officialTranscripts",
       label: "Offical Transcripts",
-      content: <GradesTable data={officialGrades} />,
+      content: <GradesTable data={stages} />,
     },
   ];
 

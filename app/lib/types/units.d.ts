@@ -71,10 +71,37 @@ export interface To {
   day: number;
 }
 
-export interface Unit {
+export interface ProgramUnit {
   programme_Code: string;
   stage_Code: string;
   code: string;
   desription: string;
   auxiliaryIndex1: number;
 }
+
+export interface StudentUnit {
+  student_No: string;
+  semester: string;
+  programme: string;
+  register_for: string;
+  stage: string;
+  unit: string;
+  grade: string;
+  final_Score: number;
+  student_Type: string;
+  total_Score: number;
+  ass_Total_Marks: number;
+  caT_Total_Marks: number;
+  exam_Marks: number;
+  campus: string;
+  programme_Code: string;
+  stage_Code: string;
+  code: string;
+  desription: string;
+  name: string;
+  auxiliaryIndex1: string;
+  auxiliaryIndex2: number;
+  auxiliaryIndex3: string;
+}
+
+export type MergedUnit = ProgramUnit & { take: boolean };

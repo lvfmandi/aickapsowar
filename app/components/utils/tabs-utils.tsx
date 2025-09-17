@@ -13,13 +13,19 @@ export type TabItem = {
   button?: Partial<ButtonHTMLAttributes<HTMLButtonElement>>;
 };
 
-type TabUtils = { data: TabItem[] };
+type TabUtils = {
+  data: TabItem[];
+  initialValue?: string;
+  handleOnChange?: (value: string) => any;
+};
 
-export const TabsUtils = ({ data }: TabUtils) => {
-  console.log({ data });
-
+export const TabsUtils = ({ data, initialValue, handleOnChange }: TabUtils) => {
   return (
-    <Tabs defaultValue={data[0].value} className="p-4 w-full">
+    <Tabs
+      className="p-4 w-full"
+      onValueChange={handleOnChange}
+      defaultValue={initialValue ?? data[0].value}
+    >
       <TabsList className="flex-wrap h-fit">
         {data.map(({ icon, label, value }) => (
           <TabsTrigger

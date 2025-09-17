@@ -25,4 +25,17 @@ export const GET_CURRENT_SEMESTER = "/api/Unit/getCurrentSemester";
 export const GET_STUDENT_STAGES = "/api/Unit/getRegisteredStudentStages";
 export const GET_PROGRAM_UNITS_BY_STAGE = "/api/Unit/getProgramUnitsByStage";
 export const GET_STUDENT_UNITS_BY_STAGE = "/api/Unit/getStudentUnitsByStage";
-export const CONFIRM_SEMESTER_REGISTRATION = "/api/Unit/confirmSemesterRegistration";
+export const CONFIRM_SEMESTER_REGISTRATION =
+  "/api/Unit/confirmSemesterRegistration";
+
+//Cards
+export const GET_CARDS = "/api/Reports/GenerateCardByType";
+
+//finance
+export const GET_RECEIPTS = "/api/FinanceInfo/getReceipts";
+export const GET_FEE_STATEMENT = "/api/FinanceInfo/getFeeStatement";
+export const GET_FEE_STRUCTURE = "/api/FinanceInfo/getFeeStructure";
+
+//grades
+export const GET_PROVISIONAL_RESULTS = "/api/Grades/getProvisionalResults";
+export const GET_OFFICIAL_RESULTS = "/api/Grades/getOfficialResults";

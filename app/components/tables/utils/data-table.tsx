@@ -1,14 +1,14 @@
 import { useState } from "react";
 
 import {
-  type ColumnDef,
-  type ColumnFiltersState,
   flexRender,
+  useReactTable,
+  type ColumnDef,
   getCoreRowModel,
+  getSortedRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
-  getSortedRowModel,
-  useReactTable,
+  type ColumnFiltersState,
 } from "@tanstack/react-table";
 
 import {
@@ -19,8 +19,8 @@ import {
   TableHead,
   TableHeader,
 } from "~/components/ui/table";
-import Icon, { Icons } from "~/components/utils/icons";
 import { Input } from "~/components/ui/input";
+import Icon, { Icons } from "~/components/utils/icons";
 import { DataTablePagination } from "~/components/tables/utils/pagination";
 import { DataTableViewOptions } from "~/components/tables/utils/column-toggle";
 
@@ -28,8 +28,8 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
   searchColumn: string;
   emptyPhrase?: string;
-  emptyIcon?: keyof typeof Icons;
   searchPlaceholder: string;
+  emptyIcon?: keyof typeof Icons;
   columns: ColumnDef<TData, TValue>[];
 }
 
@@ -37,8 +37,8 @@ export function DataTable<TData, TValue>({
   data,
   columns,
   searchColumn,
-  emptyIcon = "fileTray",
   searchPlaceholder,
+  emptyIcon = "fileTray",
   emptyPhrase = "No results!",
 }: DataTableProps<TData, TValue>) {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);

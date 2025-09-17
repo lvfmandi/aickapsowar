@@ -1,8 +1,9 @@
-import { data } from "./data";
+import type { FeeStructure as FeeStructureType } from "~/lib/types/finance";
+
 import { DataTable } from "~/components/tables/utils/data-table";
 import { columns } from "~/components/tables/fee-structure/columns";
 
-export const FeeStructure = () => {
+export const FeeStructure = ({ data }: { data: FeeStructureType[] }) => {
   return (
     <div className="py-3">
       <DataTable

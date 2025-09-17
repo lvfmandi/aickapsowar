@@ -1,7 +1,6 @@
-import {
-  columns,
-  type SemesterUnit,
-} from "~/components/tables/semester-units/columns";
+import { useStore } from "~/lib/store/index.store";
+import type { StudentUnit, ProgramUnit, MergedUnit } from "~/lib/types/units";
+
 import type { Icons } from "~/components/utils/icons";
 import { DataTable } from "~/components/tables/utils/data-table";
 
@@ -10,10 +9,14 @@ export const SemesterUnitsTable = ({
   emptyIcon,
   emptyPhrase,
 }: {
+  data: (StudentUnit | ProgramUnit | MergedUnit)[];
   emptyPhrase?: string;
-  data: SemesterUnit[];
   emptyIcon?: keyof typeof Icons;
 }) => {
+  const { currentUnitColumns: columns } = useStore((state) => state);
+
+  console.log({ data, columns });
+
   return (
     <div className="py-3">
       <DataTable

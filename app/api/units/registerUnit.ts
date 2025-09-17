@@ -3,16 +3,21 @@ import axios, { AxiosError } from "axios";
 import { REGISTER_UNIT } from "~/api/urls";
 
 import type { ApiResponse } from "~/lib/types";
-import type { UnitDTO } from "~/api/units/getStudentUnitsByStage";
+import type { StudentUnit } from "~/lib/types/units";
+
+interface RegisterUnit {
+  unitCode: string;
+  registerFor: number;
+}
 
 export const registerUnit = async ({
-  stageCode,
+  unitCode,
   registerFor,
-}: UnitDTO): Promise<ApiResponse<boolean>> => {
+}: RegisterUnit): Promise<ApiResponse<StudentUnit[]>> => {
   try {
     const response = await axios.post(
       REGISTER_UNIT,
-      { stageCode, registerFor },
+      { unitCode, registerFor },
       {
         withCredentials: true,
       }

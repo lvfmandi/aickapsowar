@@ -1,26 +1,44 @@
-import { Link } from "react-router";
+import { useNavigate } from "react-router";
+
+import { cn, NORMAL } from "~/lib/utils";
+import { useStore } from "~/lib/store/index.store";
+
 import Icon from "~/components/utils/icons";
-import { cn } from "~/lib/utils";
+import { columns } from "../tables/semester-units/normal-registration-columns";
 
 type UnitData = {
   link?: string;
   label: string;
   number: number;
   completed?: boolean;
+  description: string;
 };
 
 export const UnitsCard = ({ data }: { data: UnitData }) => {
-  const { link, label, number, completed } = data;
+  const navigate = useNavigate();
 
-  const Wrapper = link ? Link : "div";
+  const { setCurrentUnitTab, setCurrentUnitColumns } = useStore(
+    (state) => state
+  );
+  const { link, label, number, completed, description } = data;
+
+  const handleNavigate = () => {
+    if (link) {
+      setCurrentUnitTab(NORMAL);
+      setCurrentUnitColumns(columns);
+      navigate(link);
+    }
+  };
 
   return (
     <li key={label} className="border-r border-b">
-      <Wrapper
-        to={link || ""}
+      <div
+        onClick={handleNavigate}
         className={cn(
           "flex p-4 gap-8 justify-between h-full",
-          link ? "flex-col-reverse bg-accent text-foreground hover:text-primary transition-colors duration-500 ease-in" : "flex-col"
+          link
+            ? "flex-col-reverse bg-accent text-foreground hover:text-primary transition-colors duration-500 ease-in cursor-pointer"
+            : "flex-col"
         )}
       >
         <h4 className="text-base font-light">{label}</h4>
@@ -40,16 +58,15 @@ export const UnitsCard = ({ data }: { data: UnitData }) => {
               />
             )}
           </div>
-          {/* TODO: Check the total number of units */}
           <p
             className={
               "font-mono text-foreground/50 text-[10px] leading-[14px]"
             }
           >
-            Of the 7 units
+            {description}
           </p>
         </div>
-      </Wrapper>
+      </div>
     </li>
   );
 };

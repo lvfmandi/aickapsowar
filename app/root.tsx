@@ -7,29 +7,18 @@ import {
   isRouteErrorResponse,
 } from "react-router";
 import axios from "axios";
-
-import { API_URL } from "./api/urls";
-import { refresh } from "./api/auth/refresh-token";
+import { useEffect } from "react";
 
 import "~/app.css";
+import { API_URL } from "~/api/urls";
+
 import type { Route } from "./+types/root";
+import { useStore } from "~/lib/store/index.store";
+
 import { Toaster } from "~/components/ui/sonner";
 
 axios.defaults.baseURL = API_URL;
 axios.defaults.withCredentials = true;
-
-// axios.interceptors.response.use(
-//   function onFulfilled(response) {
-//     return response;
-//   },
-//   async function onRejected(error) {
-//     if (error.response.status === 401) {
-//       console.log({ status: error.response.status });
-//       await refresh();
-//     }
-//     return error;
-//   }
-// );
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -49,8 +38,19 @@ export const links: Route.LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const { theme, applyTheme } = useStore((state) => state);
+
+  useEffect(() => {
+    if (theme === "system") {
+      const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+      const handler = () => applyTheme("system");
+      mediaQuery.addEventListener("change", handler);
+      return () => mediaQuery.removeEventListener("change", handler);
+    }
+  }, [theme, applyTheme]);
+
   return (
-    <html lang="en">
+    <html lang="en" className="">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />

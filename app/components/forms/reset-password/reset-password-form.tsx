@@ -18,7 +18,7 @@ export const ResetPasswordForm = () => {
         name="confirmPassword"
         placeholder="Confirm Password"
       />
-      <Input name="token" type="text" placeholder="123456" />
+      <Input name="token" type="text" placeholder="OTP Code from Email" />
       <Button type="submit">Send an email</Button>
       <Link to={"/auth/login"}>
         <small className="text-primary">Back to Login</small>

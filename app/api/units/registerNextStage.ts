@@ -3,10 +3,9 @@ import axios, { AxiosError } from "axios";
 import { REGISTER_NEXT_STAGE } from "~/api/urls";
 
 import type { ApiResponse } from "~/lib/types";
+import type { Stage } from "~/lib/types/units";
 
-export const registerNextStage = async (): Promise<ApiResponse<boolean>> => {
-  console.log("here");
-
+export const registerNextStage = async (): Promise<ApiResponse<Stage>> => {
   try {
     const response = await axios.post(
       REGISTER_NEXT_STAGE,

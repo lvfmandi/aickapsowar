@@ -1,8 +1,9 @@
-import { data } from "./data";
-import { DataTable } from "~/components/tables/utils/data-table";
-import { columns } from "~/components/tables/receipts/columns";
+import type { Receipt } from "~/lib/types/finance";
 
-export const Receipts = () => {
+import { columns } from "~/components/tables/receipts/columns";
+import { DataTable } from "~/components/tables/utils/data-table";
+
+export const Receipts = ({ data }: { data: Receipt[] }) => {
   return (
     <div className="py-3">
       <DataTable

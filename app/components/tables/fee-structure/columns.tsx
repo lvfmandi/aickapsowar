@@ -1,12 +1,13 @@
+import dayjs from "dayjs";
 import {
-  type CellContext,
   type ColumnDef,
+  type CellContext,
   createColumnHelper,
 } from "@tanstack/react-table";
-import dayjs from "dayjs";
 import { MoreHorizontal } from "lucide-react";
 
 import { numberFormarter } from "~/lib/formarterts";
+import type { FeeStructure } from "~/lib/types/finance";
 
 import {
   DropdownMenu,
@@ -18,14 +19,6 @@ import {
 import Icon from "~/components/utils/icons";
 import { Button } from "~/components/ui/button";
 import { DataTableColumnHeader } from "~/components/tables/utils/column-header";
-
-export type FeeStructure = {
-  stage: string;
-  programCode: string;
-  postingDate: string;
-  tuitionFees: number;
-  totalFees: number;
-};
 
 const numberCell: (
   props: CellContext<FeeStructure, unknown>
@@ -85,38 +78,37 @@ export const columns: ColumnDef<FeeStructure, any>[] = [
     cell: actionsCell,
     enableSorting: false,
   }),
-  columnHelper.accessor("stage", {
+  columnHelper.accessor("stage_Code", {
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Stage" />
     ),
     cell: (info) => info.getValue(),
     enableSorting: true,
   }),
-  columnHelper.accessor("programCode", {
+  columnHelper.accessor("programme_Code", {
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Program Code" />
+      <DataTableColumnHeader column={column} title="Programme Code" />
     ),
     cell: (info) => info.getValue(),
     enableSorting: true,
   }),
-  columnHelper.accessor((row) => new Date(row.postingDate), {
-    id: "postingDate",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Posting Date" />
-    ),
-    cell: dateCell,
+  columnHelper.accessor("settlemet_Type", {
     enableSorting: true,
-  }),
-  columnHelper.accessor("tuitionFees", {
+    cell: (info) => info.getValue(),
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Tuition Fees" />
+      <DataTableColumnHeader column={column} title="Settlement Type" />
+    ),
+  }),
+  columnHelper.accessor("stage_Charges", {
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Stage Charges" />
     ),
     cell: digitCell,
     enableSorting: true,
   }),
-  columnHelper.accessor("totalFees", {
+  columnHelper.accessor("total_Charges", {
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Total Fees" />
+      <DataTableColumnHeader column={column} title="Total Charges" />
     ),
     cell: digitCell,
     enableSorting: true,

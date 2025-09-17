@@ -1,13 +1,15 @@
+import type { Stage } from "~/lib/types/units";
+
 import type { Icons } from "~/components/utils/icons";
+import { columns } from "~/components/tables/grades/columns";
 import { DataTable } from "~/components/tables/utils/data-table";
-import { columns, type Grade } from "~/components/tables/grades/columns";
 
 export const Grades = ({
   data,
   emptyIcon,
   emptyPhrase,
 }: {
-  data: Grade[];
+  data: Stage[];
   emptyPhrase?: string;
   emptyIcon?: keyof typeof Icons;
 }) => {

@@ -1,3 +1,5 @@
+import { toast } from "sonner";
+import { useState, useTransition } from "react";
 import {
   type ColumnDef,
   type CellContext,
@@ -5,62 +7,87 @@ import {
 } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 
+import type { Stage } from "~/lib/types/units";
+
 import {
   DropdownMenu,
   DropdownMenuLabel,
-  DropdownMenuContent,
   DropdownMenuTrigger,
-  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
 } from "~/components/ui/dropdown-menu";
-import Icon from "~/components/utils/icons";
 import { Button } from "~/components/ui/button";
+import { PdfDrawer } from "~/components/utils/pdf-drawer";
 import { DataTableColumnHeader } from "~/components/tables/utils/column-header";
+import { getProvisionalResults } from "~/api/grades/getProvisionalResults";
 
-export type Grade = {
-  stage: string;
-  program: string;
-  semester: string;
-  modeOfStudy: string;
-};
-
-// TODO: Make sure all the actions work
-const actionsCell: (props: CellContext<Grade, unknown>) => React.ReactNode = ({
+const actionsCell: (props: CellContext<Stage, unknown>) => React.ReactNode = ({
   row,
 }) => {
+  const [open, setOpen] = useState(false);
+
   return (
-    <DropdownMenu>
+    <DropdownMenu open={open} onOpenChange={(open) => setOpen(open)}>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="h-8 w-8 p-0">
+        <Button
+          variant="ghost"
+          className="h-8 w-8 p-0"
+          onClick={() => setOpen(true)}
+        >
           <span className="sr-only">Open menu</span>
           <MoreHorizontal className="h-4 w-4" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start">
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-        <DropdownMenuCheckboxItem
-          className="capitalize p-2 py-[6px] text-[13px] cursor-default hover:bg-accent hover:text-primary"
-          onCheckedChange={() => {
-            console.log({ value: row.getValue("stage") });
-          }}
-        >
-          <Icon name={"print"} />
-          Print Grades
-        </DropdownMenuCheckboxItem>
+        <PrintProvisionalGrades
+          setOpen={setOpen}
+          stage={row.getValue("stage")}
+        />
       </DropdownMenuContent>
     </DropdownMenu>
   );
 };
 
-const columnHelper = createColumnHelper<Grade>();
+export const PrintProvisionalGrades = ({
+  stage,
+  setOpen,
+}: {
+  stage: string;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
+  const [base64, setBase64] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
 
-export const columns: ColumnDef<Grade, any>[] = [
+  const handlePrintProvisionalGrades = () => {
+    startTransition(async () => {
+      const { data, error } = await getProvisionalResults({ stage });
+      if (error) toast.error(error);
+      setBase64(data ?? null);
+    });
+  };
+
+  return (
+    <PdfDrawer
+      base64={base64}
+      title={"Print Grades"}
+      handleOnClose={() => setOpen(false)}
+      documentTitle={"Provisional Grades"}
+      handlePrintDoc={handlePrintProvisionalGrades}
+      description={"Download or view your provisional grades"}
+    />
+  );
+};
+
+const columnHelper = createColumnHelper<Stage>();
+
+export const columns: ColumnDef<Stage, any>[] = [
   columnHelper.display({
     id: "actions",
     header: "Actions",
     cell: actionsCell,
     enableSorting: false,
   }),
-  columnHelper.accessor("program", {
+  columnHelper.accessor("programme", {
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Program" />
     ),
@@ -81,7 +108,7 @@ export const columns: ColumnDef<Grade, any>[] = [
     cell: (info) => info.getValue(),
     enableSorting: true,
   }),
-  columnHelper.accessor("modeOfStudy", {
+  columnHelper.accessor("mode_of_Study", {
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Mode of Study" />
     ),

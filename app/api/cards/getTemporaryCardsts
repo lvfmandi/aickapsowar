@@ -1,0 +1,11 @@
+import axios from "axios";
+
+import { GET_CARDS } from "~/api/urls";
+
+export const getTemporaryCard = async () => {
+  try {
+    const response = await axios.post(GET_CARDS, {}, { withCredentials: true });
+
+    console.log({ response });
+  } catch (error) {}
+};

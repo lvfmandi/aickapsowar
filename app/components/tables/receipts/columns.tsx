@@ -6,6 +6,7 @@ import {
 } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 
+import type { Receipt } from "~/lib/types/finance";
 import { numberFormarter } from "~/lib/formarterts";
 
 import {
@@ -19,14 +20,6 @@ import {
 import Icon from "~/components/utils/icons";
 import { Button } from "~/components/ui/button";
 import { DataTableColumnHeader } from "~/components/tables/utils/column-header";
-
-export type Receipt = {
-  date: string;
-  amount: number;
-  bankSlip: string;
-  receiptNo: number;
-  paymentMode: string;
-};
 
 const numberCell: (props: CellContext<Receipt, unknown>) => React.ReactNode = ({
   renderValue,
@@ -106,29 +99,39 @@ export const columns: ColumnDef<Receipt, any>[] = [
     cell: actionsCell,
     enableSorting: false,
   }),
-  columnHelper.accessor((row) => new Date(row.date), {
-    id: "date",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Date" />
-    ),
-    cell: dateCell,
-    enableSorting: true,
-  }),
-  columnHelper.accessor("receiptNo", {
+  columnHelper.accessor(
+    (row) =>
+      new Date(
+        new Date(
+          `${row.transaction_Date.month},
+          ${row.transaction_Date.day},
+          ${row.transaction_Date.year}`
+        )
+      ),
+    {
+      id: "date",
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="Date" />
+      ),
+      cell: dateCell,
+      enableSorting: true,
+    }
+  ),
+  columnHelper.accessor("receipt_No", {
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Receipt No." />
     ),
-    cell: digitCell,
+    cell: numberCell,
     enableSorting: true,
   }),
-  columnHelper.accessor("bankSlip", {
+  columnHelper.accessor("bank_Slip_Cheque_No", {
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Bank Slip" />
     ),
-    cell: (info) => info.getValue(),
+    cell: numberCell,
     enableSorting: true,
   }),
-  columnHelper.accessor("paymentMode", {
+  columnHelper.accessor("payment_Mode", {
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Payment Mode" />
     ),

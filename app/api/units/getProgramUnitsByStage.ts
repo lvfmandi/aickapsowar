@@ -2,7 +2,7 @@ import axios, { AxiosError } from "axios";
 
 import { GET_PROGRAM_UNITS_BY_STAGE } from "~/api/urls";
 
-import type { Unit } from "~/lib/types/units";
+import type { ProgramUnit } from "~/lib/types/units";
 import type { ApiResponse } from "~/lib/types";
 
 interface ProgramUnitsByStage {
@@ -11,7 +11,7 @@ interface ProgramUnitsByStage {
 
 export const getProgramUnitsByStage = async ({
   currentStage,
-}: ProgramUnitsByStage): Promise<ApiResponse<Unit[]>> => {
+}: ProgramUnitsByStage): Promise<ApiResponse<ProgramUnit[]>> => {
   try {
     const response = await axios.post(
       GET_PROGRAM_UNITS_BY_STAGE,

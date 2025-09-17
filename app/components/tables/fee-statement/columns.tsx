@@ -7,6 +7,7 @@ import {
 import { MoreHorizontal } from "lucide-react";
 
 import { numberFormarter } from "~/lib/formarterts";
+import type { FeeStatement } from "~/lib/types/finance";
 
 import {
   DropdownMenu,
@@ -18,16 +19,6 @@ import {
 import Icon from "~/components/utils/icons";
 import { Button } from "~/components/ui/button";
 import { DataTableColumnHeader } from "~/components/tables/utils/column-header";
-
-export type FeeStatement = {
-  postingDate: string;
-  refNo: number;
-  description: string;
-  invoiceAmount: number;
-  paymentAmount: number;
-  remainingAmount: number;
-  balance: number;
-};
 
 const numberCell: (
   props: CellContext<FeeStatement, unknown>
@@ -87,48 +78,63 @@ export const columns: ColumnDef<FeeStatement, any>[] = [
     cell: actionsCell,
     enableSorting: true,
   }),
-  columnHelper.accessor("refNo", {
+  columnHelper.accessor("entry_No", {
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Reference No." />
     ),
     cell: numberCell,
     enableSorting: true,
   }),
-  columnHelper.accessor((row) => new Date(row.postingDate), {
-    id: "postingDate",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Posting Date" />
-    ),
-    cell: dateCell,
-    enableSorting: true,
-  }),
+  columnHelper.accessor(
+    (row) =>
+      new Date(
+        `${row.posting_Date.month},
+        ${row.posting_Date.day},
+        ${row.posting_Date.year}`
+      ),
+    {
+      id: "posting_Date",
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="Posting Date" />
+      ),
+      cell: dateCell,
+      enableSorting: true,
+    }
+  ),
   columnHelper.accessor("description", {
     header: "Description",
   }),
-  columnHelper.accessor("invoiceAmount", {
+  columnHelper.accessor("amount_LCY", {
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Invoice Amount" />
+      <DataTableColumnHeader column={column} title="Amount" />
     ),
     cell: digitCell,
     enableSorting: true,
   }),
-  columnHelper.accessor("paymentAmount", {
+  columnHelper.accessor("debit_Amount_LCY", {
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Payment Amount" />
+      <DataTableColumnHeader column={column} title="Debit Amount" />
     ),
     cell: digitCell,
     enableSorting: true,
   }),
-  columnHelper.accessor("remainingAmount", {
+  columnHelper.accessor("credit_Amount_LCY", {
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Credit Amount" />
+    ),
+    cell: digitCell,
+    enableSorting: true,
+  }),
+  columnHelper.accessor("original_Amt_LCY", {
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Original Amount" />
+    ),
+    cell: digitCell,
+    enableSorting: true,
+  }),
+  columnHelper.accessor("remaining_Amount", {
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Remaining Amount" />
-    ),
-    cell: digitCell,
-    enableSorting: true,
-  }),
-  columnHelper.accessor("balance", {
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Balance" />
     ),
     cell: digitCell,
     enableSorting: true,

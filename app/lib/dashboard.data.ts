@@ -21,22 +21,6 @@ export const financeData = [
   },
 ];
 
-export const unitsData = [
-  {
-    label: "Registered Units",
-    number: 7,
-    completed: true,
-  },
-  {
-    label: "Attempted Units",
-    number: 56,
-  },
-  {
-    link: "/dashboard/units",
-    label: "Register Units",
-  },
-];
-
 export const lectureCards = [
   {
     number: 60,

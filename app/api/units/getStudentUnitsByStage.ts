@@ -2,22 +2,20 @@ import axios, { AxiosError } from "axios";
 
 import { GET_STUDENT_UNITS_BY_STAGE } from "~/api/urls";
 
-import type { Unit } from "~/lib/types/units";
 import type { ApiResponse } from "~/lib/types";
+import type { StudentUnit } from "~/lib/types/units";
 
 export interface UnitDTO {
   stageCode: string;
-  registerFor: string;
 }
 
 export const getStudentUnitsByStage = async ({
   stageCode,
-  registerFor,
-}: UnitDTO): Promise<ApiResponse<Unit[]>> => {
+}: UnitDTO): Promise<ApiResponse<StudentUnit[]>> => {
   try {
     const response = await axios.post(
       GET_STUDENT_UNITS_BY_STAGE,
-      { stageCode, registerFor },
+      { stageCode },
       {
         withCredentials: true,
       }

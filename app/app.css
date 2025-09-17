@@ -6,13 +6,13 @@
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-mono: "Martian Mono", ui-monospace, "SFMono-Regular", "Menlo", "Monaco", "Consolas",
-    "Liberation Mono", "Courier New", monospace;
+  --font-mono: "Martian Mono", ui-monospace, "SFMono-Regular", "Menlo", "Monaco",
+    "Consolas", "Liberation Mono", "Courier New", monospace;
 }
 
 html,
 body {
-  @apply bg-white dark:bg-gray-950;
+  @apply bg-background text-foreground;
 
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
@@ -93,19 +93,19 @@ body {
 }
 
 .dark {
-  --background: oklch(0.147 0.004 49.25);
+  --background: oklch(0.25 0.004 49.25);
   --foreground: oklch(0.985 0.001 106.423);
   --card: oklch(0.6855 0.1988 43.62);
   --card-foreground: oklch(0.985 0.001 106.423);
-  --popover: oklch(0.6855 0.1988 43.62);
+  --popover: oklch(0.32 0.004 49.25);
   --popover-foreground: oklch(0.985 0.001 106.423);
-  --primary: oklch(0.923 0.003 48.717);
-  --primary-foreground: oklch(0.6855 0.1988 43.62);
-  --secondary: oklch(0.268 0.007 34.298);
+  --primary: oklch(0.6855 0.1988 43.62);
+  --primary-foreground: oklch(0.923 0.003 48.717);
+  --secondary: oklch(0.25 0.004 49.25);
   --secondary-foreground: oklch(0.985 0.001 106.423);
-  --muted: oklch(0.268 0.007 34.298);
+  --muted: oklch(0.25 0.004 49.25);
   --muted-foreground: oklch(0.709 0.01 56.259);
-  --accent: oklch(0.268 0.007 34.298);
+  --accent: oklch(0.25 0.004 49.25);
   --accent-foreground: oklch(0.985 0.001 106.423);
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 10%);
@@ -120,7 +120,7 @@ body {
   --sidebar-foreground: oklch(0.985 0.001 106.423);
   --sidebar-primary: oklch(0.488 0.243 264.376);
   --sidebar-primary-foreground: oklch(0.985 0.001 106.423);
-  --sidebar-accent: oklch(0.268 0.007 34.298);
+  --sidebar-accent: oklch(0.25 0.004 49.25);
   --sidebar-accent-foreground: oklch(0.985 0.001 106.423);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.553 0.013 58.071);
@@ -131,9 +131,12 @@ body {
     @apply border-border outline-ring/50;
   }
 
+  html,
   body {
     @apply bg-background text-foreground;
   }
+
+  /* @media (prefers-color-scheme: dark) { color-scheme: dark; } */
 
   .container {
     @apply px-4 md:px-8 lg:px-16 xl:px-20 2xl:px-24 !max-w-full;

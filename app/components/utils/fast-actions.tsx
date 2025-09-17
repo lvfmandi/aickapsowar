@@ -2,6 +2,7 @@ import { Input } from "~/components/ui/input";
 import { UserAvatar } from "~/components/utils/user-avatar";
 import { MobileNotifications } from "~/components/notifications/mobile-notifications";
 import { useStore } from "~/lib/store/index.store";
+import { ThemeToggle } from "./theme-toggle";
 
 export const FastActions = () => {
   const user = useStore((state) => state.user);
@@ -21,6 +22,7 @@ export const FastActions = () => {
         />
       </div>
       <div className="flex gap-4 items-center">
+        <ThemeToggle />
         <MobileNotifications />
         {/* TODO: Add functionality of avatar */}
         <UserAvatar

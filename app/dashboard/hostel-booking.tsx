@@ -26,23 +26,12 @@ import {
   SelectContent,
   SelectTrigger,
 } from "~/components/ui/select";
-import Icon from "~/components/utils/icons";
 import { Button } from "~/components/ui/button";
 import type { Route } from "./+types/hostel-booking";
+import { PdfDrawer } from "~/components/utils/pdf-drawer";
 import { IconDataDisplay } from "~/components/utils/icon-data-display";
 import { DashbaordContentLayout } from "~/components/dashboard/content-layout";
 import { DesktopNotifications } from "~/components/notifications/desktop-notifications";
-
-import {
-  Drawer,
-  DrawerTitle,
-  DrawerHeader,
-  DrawerFooter,
-  DrawerContent,
-  DrawerTrigger,
-  DrawerDescription,
-} from "~/components/ui/drawer";
-import PdfViewer from "~/lib/pdf";
 
 export async function clientLoader() {
   const { data: sHostel, error: noStudentHostel } = await getStudentHostel();
@@ -230,31 +219,13 @@ export default function HostelBooking({ loaderData }: Route.ComponentProps) {
                 <h4 className="text-base font-light lg:text-sm lg:font-normal text-muted-foreground">
                   Status: {studentHostel.status}
                 </h4>
-                <Drawer direction="bottom">
-                  <DrawerTrigger asChild>
-                    <Button
-                      variant="outline"
-                      onClick={handlePrintHostelInvoice}
-                    >
-                      <Icon name="print" />
-                      Print Invoice
-                    </Button>
-                  </DrawerTrigger>
-                  <DrawerContent className="h-fit lg:h-screen max-h-[80vh]">
-                    <div className="container mx-auto w-full">
-                      <DrawerHeader className="!text-left">
-                        <DrawerTitle>Hostel Invoice</DrawerTitle>
-                        <DrawerDescription>
-                          Download or view your hostel invoice
-                        </DrawerDescription>
-                      </DrawerHeader>
-                      <div className="p-4 pb-0">
-                        <PdfViewer base64Data={hostelInvoice} />
-                      </div>
-                      <DrawerFooter></DrawerFooter>
-                    </div>
-                  </DrawerContent>
-                </Drawer>
+                <PdfDrawer
+                  title="Print Invoice"
+                  base64={hostelInvoice}
+                  documentTitle="Hostel Invoice"
+                  handlePrintDoc={handlePrintHostelInvoice}
+                  description="Download or view your hostel invoice"
+                />
               </div>
               <IconDataDisplay
                 icon={"bed"}
