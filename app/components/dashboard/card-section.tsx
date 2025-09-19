@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
+
 import { Icons } from "~/components/utils/icons";
 import { IconText } from "~/components/utils/icon-text";
-import { useStore } from "~/lib/store/index.store";
 
 export const DashboardCardSection = ({
   icon,
@@ -14,7 +14,6 @@ export const DashboardCardSection = ({
   icon?: keyof typeof Icons;
   itemComponent: React.ComponentType<any>;
 }) => {
-
   return (
     <div className="flex flex-col gap-2">
       {icon && title && (

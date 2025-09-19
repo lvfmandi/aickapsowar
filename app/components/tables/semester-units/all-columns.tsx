@@ -4,7 +4,7 @@ import {
   createColumnHelper,
 } from "@tanstack/react-table";
 
-import type { StudentUnit } from "~/lib/types/units";
+import type { StudentUnit } from "~/lib/types/units.d";
 
 import { Checkbox } from "~/components/ui/checkbox";
 import { DataTableColumnHeader } from "~/components/tables/utils/column-header";
@@ -32,7 +32,8 @@ export const columns: ColumnDef<StudentUnit, any>[] = [
     cell: displayCell,
     enableSorting: true,
   }),
-  columnHelper.accessor("unit", {
+  columnHelper.display({
+    id: "taken",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Taken" />
     ),

@@ -1,4 +1,6 @@
 import dayjs from "dayjs";
+import { toast } from "sonner";
+import { useState, useTransition } from "react";
 import {
   type ColumnDef,
   type CellContext,
@@ -6,18 +8,23 @@ import {
 } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 
+import { printFeeStatement } from "~/api/finance/printFeeStatement";
+
 import { numberFormarter } from "~/lib/formarterts";
 import type { FeeStatement } from "~/lib/types/finance";
 
 import {
   DropdownMenu,
+  DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuTrigger,
   DropdownMenuContent,
+  DropdownMenuTrigger,
+  DropdownMenuSeparator,
   DropdownMenuCheckboxItem,
 } from "~/components/ui/dropdown-menu";
 import Icon from "~/components/utils/icons";
 import { Button } from "~/components/ui/button";
+import { PdfDrawer } from "~/components/utils/pdf-drawer";
 import { DataTableColumnHeader } from "~/components/tables/utils/column-header";
 
 const numberCell: (
@@ -46,29 +53,82 @@ const digitCell: (
 
 const actionsCell: (
   props: CellContext<FeeStatement, unknown>
-) => React.ReactNode = ({ row, getValue }) => (
-  <DropdownMenu>
-    <DropdownMenuTrigger asChild>
-      <Button variant="ghost" className="h-8 w-8 p-0">
-        <span className="sr-only">Open menu</span>
-        <MoreHorizontal className="h-4 w-4" />
-      </Button>
-    </DropdownMenuTrigger>
-    <DropdownMenuContent align="start">
-      <DropdownMenuLabel>Actions</DropdownMenuLabel>
-      <DropdownMenuCheckboxItem
-        className="capitalize p-2 py-[6px] text-[13px] cursor-default hover:bg-accent hover:text-primary"
-        onCheckedChange={() => {
-          navigator.clipboard.writeText(row.getValue("refNo"));
-        }}
-      >
-        {/* TODO: Ensure we tell them once they have copied */}
-        <Icon name={"copy"} />
-        Copy Reference No.
-      </DropdownMenuCheckboxItem>
-    </DropdownMenuContent>
-  </DropdownMenu>
-);
+) => React.ReactNode = ({ row, getValue }) => {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <DropdownMenu open={open} onOpenChange={setOpen}>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" className="h-8 w-8 p-0">
+          <span className="sr-only">Open menu</span>
+          <MoreHorizontal className="h-4 w-4" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="start">
+        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+        <DropdownMenuCheckboxItem
+          className="capitalize p-2 py-[6px] text-[13px] cursor-default hover:bg-accent hover:text-primary"
+          onCheckedChange={() => {
+            navigator.clipboard.writeText(row.getValue("entry_No"));
+            toast.success("Reference No. Copied");
+          }}
+        >
+          <Icon name={"copy"} />
+          Copy Reference No.
+        </DropdownMenuCheckboxItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem asChild>
+          <PrintFeeStatement setOpen={setOpen} />
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
+
+export const PrintFeeStatement = ({
+  setOpen,
+}: {
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
+  const [_, startTransition] = useTransition();
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [base64, setBase64] = useState<string | null>(null);
+
+  const handlePrintReceipt = () => {
+    setDrawerOpen(true);
+
+    startTransition(async () => {
+      const { data, error } = await printFeeStatement();
+
+      if (error) {
+        setDrawerOpen(() => {
+          setOpen(false);
+          return false;
+        });
+
+        toast.error(error);
+      }
+      console.log({ data, error });
+
+      setBase64(data ?? null);
+    });
+  };
+
+  return (
+    <div className="grid">
+      <PdfDrawer
+        base64={base64}
+        open={drawerOpen}
+        title={"Print Fee Statement"}
+        documentTitle={"Fee Statement"}
+        handleOnClose={() => setOpen(false)}
+        handlePrintDoc={handlePrintReceipt}
+        description={"Download or view your fee statement."}
+      />
+    </div>
+  );
+};
+
 const columnHelper = createColumnHelper<FeeStatement>();
 
 export const columns: ColumnDef<FeeStatement, any>[] = [

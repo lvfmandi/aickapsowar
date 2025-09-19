@@ -20,6 +20,8 @@ type TabUtils = {
 };
 
 export const TabsUtils = ({ data, initialValue, handleOnChange }: TabUtils) => {
+  console.log({ initialValue });
+
   return (
     <Tabs
       className="p-4 w-full"

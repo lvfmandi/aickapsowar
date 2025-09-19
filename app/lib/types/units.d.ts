@@ -9,7 +9,7 @@ export interface Stage {
   entry_No: number;
   intake: string;
   academic_Year: string;
-  registration_Date: RegistrationDate;
+  registration_Date: CustomDate;
   settlement_Type: string;
   units_Taken: number;
   options: string;
@@ -36,17 +36,11 @@ export interface Stage {
   settlement_Type_Link: any[];
 }
 
-export interface RegistrationDate {
-  year: number;
-  month: number;
-  day: number;
-}
-
 export interface Semester {
   code: string;
   description: string;
-  from: From;
-  to: To;
+  from: CustomDate;
+  to: CustomDate;
   remarks: string;
   current_Semester: boolean;
   exam_Semester: boolean;
@@ -59,13 +53,7 @@ export interface Semester {
   academic_Year_Link: any[];
 }
 
-export interface From {
-  year: number;
-  month: number;
-  day: number;
-}
-
-export interface To {
+export interface CustomDate {
   year: number;
   month: number;
   day: number;

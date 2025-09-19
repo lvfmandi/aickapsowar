@@ -33,9 +33,16 @@ export const GET_CARDS = "/api/Reports/GenerateCardByType";
 
 //finance
 export const GET_RECEIPTS = "/api/FinanceInfo/getReceipts";
+export const PRINT_RECEIPT = "/api/FinanceInfo/printReceipt";
 export const GET_FEE_STATEMENT = "/api/FinanceInfo/getFeeStatement";
 export const GET_FEE_STRUCTURE = "/api/FinanceInfo/getFeeStructure";
+export const PRINT_FEE_STATEMENT = "/api/FinanceInfo/printFeeStatement";
+export const PRINT_FEE_STRUCTURE = "/api/FinanceInfo/printFeeStructure";
 
 //grades
 export const GET_PROVISIONAL_RESULTS = "/api/Grades/getProvisionalResults";
 export const GET_OFFICIAL_RESULTS = "/api/Grades/getOfficialResults";
+
+//Accounts
+export const GET_STUDENT_INFO = "/api/Accounts/getUserDetails";
+export const POST_STUDENT_INFO = "/api/Accounts/postUserDetails";

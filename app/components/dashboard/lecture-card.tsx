@@ -1,18 +1,40 @@
-import Icon from "~/components/utils/icons";
-import { Button } from "~/components/ui/button";
+import { toast } from "sonner";
+import { useState, useTransition } from "react";
+
+import { getCard } from "~/api/cards/getCard";
+
+import type { CardType } from "~/lib/types/cards";
 import { percentageFormarter } from "~/lib/formarterts";
+
+import Icon from "~/components/utils/icons";
+import { PdfDrawer } from "~/components/utils/pdf-drawer";
 
 type LectureCard = {
   label: string;
+  base64: string;
   number: number;
+  cardType: CardType;
   completed?: boolean;
 };
 
 export const LectureCard = ({ data }: { data: LectureCard }) => {
-  const { label, number, completed } = data;
+  const [open, setOpen] = useState(false);
+  const [_, startTransition] = useTransition();
+  const { label, number, completed, cardType } = data;
+
+  const [base64, setBase64] = useState<string | null>(null);
 
   const handlePrint = () => {
-    console.log(data);
+    setOpen(true);
+    startTransition(async () => {
+      const { data, error } = await getCard({ cardType });
+
+      if (error) {
+        setOpen(false);
+        toast.error(error);
+      }
+      if (data) setBase64(data ?? null);
+    });
   };
 
   return (
@@ -29,16 +51,16 @@ export const LectureCard = ({ data }: { data: LectureCard }) => {
           />
         )}
       </div>
-      <div className="space-y-2">
-        <Button
-          className="w-full"
-          variant={"outline"}
-          onClick={handlePrint}
-          disabled={!Boolean(completed)}
-        >
-          <Icon name="print" />
-          Print
-        </Button>
+      <div className="grid gap-2">
+        <PdfDrawer
+          open={open}
+          base64={base64}
+          documentTitle={label}
+          title={`${label}`}
+          handlePrintDoc={handlePrint}
+          handleOnClose={() => setOpen(false)}
+          description={`You can print or download the ${label}`}
+        />
         <p className="font-mono text-[10px] text-foreground/50">
           At least{" "}
           <span className="text-foreground font-medium">

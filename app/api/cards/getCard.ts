@@ -1,17 +1,23 @@
 import axios, { AxiosError } from "axios";
 
-import { GET_STUDENT_STAGES } from "~/api/urls";
+import { GET_CARDS } from "~/api/urls";
 
-import type { Stage } from "~/lib/types/units.d";
 import type { ApiResponse } from "~/lib/types";
+import type { CardType } from "~/lib/types/cards.d";
 
-export const getStudentStages = async (): Promise<ApiResponse<Stage[]>> => {
+interface GetCards {
+  cardType: CardType;
+}
+
+export const getCard = async (
+  getCards: GetCards
+): Promise<ApiResponse<string>> => {
   try {
-    const response = await axios.get(GET_STUDENT_STAGES, {
+    const response = await axios.post(GET_CARDS, getCards, {
       withCredentials: true,
     });
 
-    return { data: response.data || [] };
+    return { data: response.data.base64 };
   } catch (err) {
     const error = err as AxiosError<{ error: string; errors: string }>;
     return {

@@ -1,40 +1,31 @@
-import dayjs from "dayjs";
+import { toast } from "sonner";
 import {
   type ColumnDef,
   type CellContext,
   createColumnHelper,
 } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
+import { useState, useTransition } from "react";
+
+import {
+  printFeeStructure,
+  type PrintFeeStructure as PrintFeeStructureInterface,
+} from "~/api/finance/printFeeStructure";
 
 import { numberFormarter } from "~/lib/formarterts";
 import type { FeeStructure } from "~/lib/types/finance";
 
 import {
   DropdownMenu,
-  DropdownMenuContent,
+  DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuContent,
   DropdownMenuTrigger,
-  DropdownMenuCheckboxItem,
+  DropdownMenuSeparator,
 } from "~/components/ui/dropdown-menu";
-import Icon from "~/components/utils/icons";
 import { Button } from "~/components/ui/button";
+import { PdfDrawer } from "~/components/utils/pdf-drawer";
 import { DataTableColumnHeader } from "~/components/tables/utils/column-header";
-
-const numberCell: (
-  props: CellContext<FeeStructure, unknown>
-) => React.ReactNode = ({ renderValue }) => (
-  <span className="inline-table font-mono text-xs font-light">
-    {renderValue() as number | string}
-  </span>
-);
-
-const dateCell: (
-  props: CellContext<FeeStructure, unknown>
-) => React.ReactNode = ({ getValue }) => (
-  <span className="inline-table font-light">
-    {dayjs(getValue() as Date).format("D MMM YYYY") as number | string}
-  </span>
-);
 
 const digitCell: (
   props: CellContext<FeeStructure, unknown>
@@ -46,28 +37,65 @@ const digitCell: (
 
 const actionsCell: (
   props: CellContext<FeeStructure, unknown>
-) => React.ReactNode = ({ row, getValue }) => (
-  <DropdownMenu>
-    <DropdownMenuTrigger asChild>
-      <Button variant="ghost" className="h-8 w-8 p-0">
-        <span className="sr-only">Open menu</span>
-        <MoreHorizontal className="h-4 w-4" />
-      </Button>
-    </DropdownMenuTrigger>
-    <DropdownMenuContent align="start">
-      <DropdownMenuLabel>Actions</DropdownMenuLabel>
-      <DropdownMenuCheckboxItem
-        className="capitalize p-2 py-[6px] text-[13px] cursor-default hover:bg-accent hover:text-primary"
-        onCheckedChange={() => {
-          navigator.clipboard.writeText(row.getValue("refNo"));
-        }}
-      >
-        <Icon name={"print"} />
-        <span className="text-[13px]">Print Fee structure</span>
-      </DropdownMenuCheckboxItem>
-    </DropdownMenuContent>
-  </DropdownMenu>
-);
+) => React.ReactNode = ({ row, getValue }) => {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <DropdownMenu open={open} onOpenChange={setOpen}>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" className="h-8 w-8 p-0">
+          <span className="sr-only">Open menu</span>
+          <MoreHorizontal className="h-4 w-4" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="start">
+        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem asChild>
+          <PrintFeeStructure
+            setOpen={setOpen}
+            data={{
+              stageCode: row.original.stage_Code,
+              campusCode: row.original.auxiliaryIndex3,
+            }}
+          />
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
+
+export const PrintFeeStructure = ({
+  data: incomingData,
+  setOpen,
+}: {
+  data: PrintFeeStructureInterface;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
+  const [base64, setBase64] = useState<string | null>(null);
+  const [_, startTransition] = useTransition();
+
+  const handlePrintFeeStructure = () => {
+    startTransition(async () => {
+      const { data, error } = await printFeeStructure(incomingData);
+      if (error) toast.error(error);
+      setBase64(data ?? null);
+    });
+  };
+
+  return (
+    <div className="grid">
+      <PdfDrawer
+        base64={base64}
+        title={"Print Fee Structure"}
+        documentTitle={"Fee Structure"}
+        handleOnClose={() => setOpen(false)}
+        handlePrintDoc={handlePrintFeeStructure}
+        description={"Download or view your fee structure."}
+      />
+    </div>
+  );
+};
 
 const columnHelper = createColumnHelper<FeeStructure>();
 

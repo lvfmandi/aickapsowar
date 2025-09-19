@@ -3,7 +3,7 @@ import axios, { AxiosError } from "axios";
 import { REGISTER_NEXT_STAGE } from "~/api/urls";
 
 import type { ApiResponse } from "~/lib/types";
-import type { Stage } from "~/lib/types/units";
+import type { Stage } from "~/lib/types/units.d";
 
 export const registerNextStage = async (): Promise<ApiResponse<Stage>> => {
   try {

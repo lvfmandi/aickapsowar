@@ -2,7 +2,7 @@ import axios, { AxiosError } from "axios";
 
 import { GET_PROGRAM_UNITS_BY_STAGE } from "~/api/urls";
 
-import type { ProgramUnit } from "~/lib/types/units";
+import type { ProgramUnit } from "~/lib/types/units.d";
 import type { ApiResponse } from "~/lib/types";
 
 interface ProgramUnitsByStage {

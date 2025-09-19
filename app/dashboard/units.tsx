@@ -1,6 +1,6 @@
 import { useStore } from "~/lib/store/index.store";
 import { fetchUnitsData } from "~/lib/data-helpers/units.data";
-import type { Stage, ProgramUnit, StudentUnit } from "~/lib/types/units";
+import type { Stage, ProgramUnit, StudentUnit } from "~/lib/types/units.d";
 
 import type { Route } from "./+types/units";
 import { useUnits } from "~/components/hooks/use-units";

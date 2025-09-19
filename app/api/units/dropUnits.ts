@@ -3,7 +3,7 @@ import axios, { AxiosError } from "axios";
 import { DROP_UNIT } from "~/api/urls";
 
 import type { ApiResponse } from "~/lib/types";
-import type { StudentUnit } from "~/lib/types/units";
+import type { StudentUnit } from "~/lib/types/units.d";
 
 interface DropUnit {
   unitCode: string;

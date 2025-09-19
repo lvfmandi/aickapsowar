@@ -1,5 +1,5 @@
 import { useStore } from "~/lib/store/index.store";
-import type { StudentUnit, ProgramUnit, MergedUnit } from "~/lib/types/units";
+import type { StudentUnit, ProgramUnit, MergedUnit } from "~/lib/types/units.d";
 
 import type { Icons } from "~/components/utils/icons";
 import { DataTable } from "~/components/tables/utils/data-table";
@@ -9,13 +9,11 @@ export const SemesterUnitsTable = ({
   emptyIcon,
   emptyPhrase,
 }: {
-  data: (StudentUnit | ProgramUnit | MergedUnit)[];
   emptyPhrase?: string;
   emptyIcon?: keyof typeof Icons;
+  data: (StudentUnit | ProgramUnit | MergedUnit)[];
 }) => {
   const { currentUnitColumns: columns } = useStore((state) => state);
-
-  console.log({ data, columns });
 
   return (
     <div className="py-3">

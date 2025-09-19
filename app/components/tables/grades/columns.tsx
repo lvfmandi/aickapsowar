@@ -7,7 +7,7 @@ import {
 } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 
-import type { Stage } from "~/lib/types/units";
+import type { Stage } from "~/lib/types/units.d";
 
 import {
   DropdownMenu,
@@ -55,13 +55,20 @@ export const PrintProvisionalGrades = ({
   stage: string;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
+  const [openDrawer, setOpenDrawer] = useState(false);
   const [base64, setBase64] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
   const handlePrintProvisionalGrades = () => {
+    setOpenDrawer(true);
+
     startTransition(async () => {
       const { data, error } = await getProvisionalResults({ stage });
-      if (error) toast.error(error);
+      if (error) {
+        setOpen(false);
+        toast.error(error);
+        setOpenDrawer(false);
+      }
       setBase64(data ?? null);
     });
   };
@@ -69,6 +76,7 @@ export const PrintProvisionalGrades = ({
   return (
     <PdfDrawer
       base64={base64}
+      open={openDrawer}
       title={"Print Grades"}
       handleOnClose={() => setOpen(false)}
       documentTitle={"Provisional Grades"}

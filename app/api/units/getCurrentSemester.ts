@@ -3,7 +3,7 @@ import axios, { AxiosError } from "axios";
 import { GET_CURRENT_SEMESTER } from "~/api/urls";
 
 import type { ApiResponse } from "~/lib/types";
-import type { Semester } from "~/lib/types/units";
+import type { Semester } from "~/lib/types/units.d";
 
 export const getCurrentSemester = async (): Promise<ApiResponse<Semester>> => {
   try {

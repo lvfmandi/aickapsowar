@@ -10,16 +10,16 @@ import {
 import { Button } from "~/components/ui/button";
 import { Calendar } from "~/components/ui/calendar";
 
-export const CalendarPicker = () => {
+export const CalendarPicker = ({ date: defaultDate }: { date: Date }) => {
   const [open, setOpen] = useState<boolean>(false);
-  const [date, setDate] = useState<Date | undefined>(undefined);
+  const [date, setDate] = useState<Date | undefined>(defaultDate);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
-          variant="outline"
           id="date"
+          variant="outline"
           className="w-full justify-between font-normal"
         >
           {date ? date.toLocaleDateString() : "Select date"}
@@ -28,13 +28,10 @@ export const CalendarPicker = () => {
       </PopoverTrigger>
       <PopoverContent className="w-auto overflow-hidden p-0" align="start">
         <Calendar
+          disabled
           mode="single"
           selected={date}
           captionLayout="dropdown"
-          onSelect={(date) => {
-            setDate(date);
-            setOpen(false);
-          }}
         />
       </PopoverContent>
     </Popover>

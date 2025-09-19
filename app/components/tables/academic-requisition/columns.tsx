@@ -96,7 +96,6 @@ const actionsCell: (
         disabled={row.getValue("status") !== "Pending"}
         className="capitalize p-2 py-[6px] text-[13px] cursor-default hover:bg-accent hover:text-primary"
       >
-        {/* TODO: Ensure we tell them once they have copied */}
         <Icon name={"close"} />
         Cancel Requisition
       </DropdownMenuCheckboxItem>

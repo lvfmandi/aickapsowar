@@ -3,7 +3,7 @@ import axios, { AxiosError } from "axios";
 import { GET_STUDENT_UNITS_BY_STAGE } from "~/api/urls";
 
 import type { ApiResponse } from "~/lib/types";
-import type { StudentUnit } from "~/lib/types/units";
+import type { StudentUnit } from "~/lib/types/units.d";
 
 export interface UnitDTO {
   stageCode: string;

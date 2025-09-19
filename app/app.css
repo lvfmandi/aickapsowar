@@ -13,10 +13,6 @@
 html,
 body {
   @apply bg-background text-foreground;
-
-  @media (prefers-color-scheme: dark) {
-    color-scheme: dark;
-  }
 }
 
 @theme inline {
@@ -128,12 +124,12 @@ body {
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border outline-ring/50 dark:scheme-dark;
   }
 
   html,
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground scheme-light;
   }
 
   /* @media (prefers-color-scheme: dark) { color-scheme: dark; } */

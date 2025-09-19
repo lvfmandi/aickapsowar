@@ -3,7 +3,7 @@ import axios, { AxiosError } from "axios";
 import { CONFIRM_SEMESTER_REGISTRATION } from "~/api/urls";
 
 import type { ApiResponse } from "~/lib/types";
-import type { Stage } from "~/lib/types/units";
+import type { Stage } from "~/lib/types/units.d";
 
 export const confirmSemesterRegistration = async (): Promise<
   ApiResponse<Stage>

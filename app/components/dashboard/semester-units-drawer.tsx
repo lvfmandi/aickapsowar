@@ -4,9 +4,9 @@ import { useEffect, useTransition, type Dispatch } from "react";
 
 import { getStudentUnitsByStage } from "~/api/units/getStudentUnitsByStage";
 
-import { NORMAL } from "~/lib/utils";
 import { useStore } from "~/lib/store/index.store";
-import type { Stage, MergedUnit } from "~/lib/types/units";
+import { UnitTabsSections } from "~/lib/store/unit.store";
+import { type Stage, type MergedUnit } from "~/lib/types/units.d";
 
 import {
   Drawer,
@@ -49,7 +49,7 @@ export const SemesterUnitsDrawer = ({
 
   useEffect(() => {
     startTransition(async () => {
-      if (currentUnitTab == NORMAL) {
+      if (currentUnitTab == UnitTabsSections.NORMAL.toString()) {
         setCurrentUnits(mergedUnits());
       } else {
         const { data, error } = await getStudentUnitsByStage({

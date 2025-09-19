@@ -1,6 +1,6 @@
 import { toast } from "sonner";
 
-import type { Stage } from "~/lib/types/units";
+import type { Stage } from "~/lib/types/units.d";
 
 import { getStudentStages } from "~/api/units/getStudentStages";
 import { getProgramUnitsByStage } from "~/api/units/getProgramUnitsByStage";
@@ -31,8 +31,8 @@ export const fetchUnits = async ({
 };
 
 export const fetchUnitsData = async () => {
-  const { data: stages, error: stagesError } = await getStudentStages();
-  const { data: confirmRegistration, error: confirmRegistrationError } =
+  const { data: stages = [], error: stagesError } = await getStudentStages();
+  const { data: confirmRegistration = null, error: confirmRegistrationError } =
     await confirmSemesterRegistration();
 
   // gather base errors
@@ -44,13 +44,16 @@ export const fetchUnitsData = async () => {
 
   // if registration is confirmed, fetch extra data
   if (confirmRegistration) {
-    const { prgmUnits, stdtUnits, studentUnitError, programUnitsError } =
-      await fetchUnits({ studentRegistration: confirmRegistration });
+    const {
+      prgmUnits = [],
+      stdtUnits = [],
+      studentUnitError,
+      programUnitsError,
+    } = await fetchUnits({ studentRegistration: confirmRegistration });
 
     const regError = programUnitsError ?? studentUnitError;
     if (regError) {
-      toast.error(regError);
-      return { error: regError };
+      toast.error(regError.toString());
     }
 
     return {
@@ -62,5 +65,5 @@ export const fetchUnitsData = async () => {
   }
 
   // if no confirmed registration, return base data
-  return { stages, confirmRegistration };
+  return { stages, prgmUnits: [], stdtUnits: [], confirmRegistration };
 };

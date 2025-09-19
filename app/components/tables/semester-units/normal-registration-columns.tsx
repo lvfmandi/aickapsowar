@@ -9,7 +9,7 @@ import { toast } from "sonner";
 import { dropUnit } from "~/api/units/dropUnits";
 import { registerUnit } from "~/api/units/registerUnit";
 
-import type { MergedUnit } from "~/lib/types/units";
+import type { MergedUnit } from "~/lib/types/units.d";
 import { REG_FOR_STAGE, REG_FOR_VALUES } from "~/lib/utils";
 
 import { Checkbox } from "~/components/ui/checkbox";

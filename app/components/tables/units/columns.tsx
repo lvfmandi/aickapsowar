@@ -6,7 +6,7 @@ import {
 import { useState } from "react";
 import { MoreHorizontal } from "lucide-react";
 
-import type { Stage } from "~/lib/types/units";
+import type { Stage } from "~/lib/types/units.d";
 import { numberFormarter } from "~/lib/formarterts";
 
 import {

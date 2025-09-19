@@ -24,8 +24,8 @@ export const MobileNavMenu = () => {
       >
         <Icon name="menu" className="size-6" />
       </SheetTrigger>
-      <SheetContent side="left" className="gap-0">
-        <SheetHeader className="py-5 border-b">
+      <SheetContent side="left" className="gap-0 dark">
+        <SheetHeader className="py-5 border-b text-foreground">
           <SheetTitle>
             <Logo
               image={{ className: "size-8" }}

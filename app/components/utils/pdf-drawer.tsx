@@ -1,5 +1,5 @@
 import PdfViewer from "~/lib/pdf";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
 
 import {
   Drawer,
@@ -15,6 +15,7 @@ import { Button } from "~/components/ui/button";
 import { LoaderImage } from "~/components/utils/loader";
 
 export const PdfDrawer = ({
+  open,
   title,
   base64,
   description,
@@ -23,6 +24,7 @@ export const PdfDrawer = ({
   handlePrintDoc,
 }: {
   title: string;
+  open?: boolean;
   description: string;
   base64: string | null;
   documentTitle: string;
@@ -61,7 +63,7 @@ export const PdfDrawer = ({
   };
 
   return (
-    <Drawer direction="bottom" onClose={handleOnClose}>
+    <Drawer open={open} direction="bottom" onClose={handleOnClose}>
       <DrawerTrigger asChild>
         <Button variant="outline" onClick={handlePrintDoc}>
           <Icon name="print" />

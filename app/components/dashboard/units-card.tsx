@@ -1,9 +1,10 @@
 import { useNavigate } from "react-router";
 
-import { cn, NORMAL } from "~/lib/utils";
+import { cn } from "~/lib/utils";
 import { useStore } from "~/lib/store/index.store";
 
 import Icon from "~/components/utils/icons";
+import { UnitTabsSections } from "~/lib/store/unit.store";
 import { columns } from "../tables/semester-units/normal-registration-columns";
 
 type UnitData = {
@@ -24,9 +25,9 @@ export const UnitsCard = ({ data }: { data: UnitData }) => {
 
   const handleNavigate = () => {
     if (link) {
-      setCurrentUnitTab(NORMAL);
-      setCurrentUnitColumns(columns);
       navigate(link);
+      setCurrentUnitColumns(columns);
+      setCurrentUnitTab(UnitTabsSections.NORMAL.toString());
     }
   };
 

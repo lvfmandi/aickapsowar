@@ -3,10 +3,14 @@ import { toast } from "sonner";
 import { useEffect, useTransition } from "react";
 import type { ColumnDef } from "@tanstack/react-table";
 
+import {
+  type Stage,
+  type ProgramUnit,
+  type StudentUnit,
+} from "~/lib/types/units.d";
 import { useStore } from "~/lib/store/index.store";
 import { fetchUnits } from "~/lib/data-helpers/units.data";
-import { ALL, NORMAL, UNIT_TABS_SECTIONS } from "~/lib/utils";
-import type { ProgramUnit, Stage, StudentUnit } from "~/lib/types/units";
+import { UnitTabsSections } from "~/lib/store/unit.store";
 
 import { getStudentStages } from "~/api/units/getStudentStages";
 import { registerNextStage } from "~/api/units/registerNextStage";
@@ -89,7 +93,7 @@ export const useUnits = ({
     const dataItem = unitTabs.find((tab) => tab.value === value);
     if (dataItem) {
       setCurrentUnitColumns(dataItem.columns);
-      setCurrentUnitTab(dataItem.value as (typeof UNIT_TABS_SECTIONS)[number]);
+      setCurrentUnitTab(dataItem.value);
     }
   };
 
@@ -98,7 +102,7 @@ export const useUnits = ({
       label: "Registered Units",
       number: currentStage?.units_Taken || 0,
       completed: Boolean(currentStage?.units_Taken),
-      description: `Of the ${programUnits.length} units`,
+      description: `Of the ${programUnits?.length} units`,
     },
     {
       label: "Attempted Units",
@@ -111,23 +115,34 @@ export const useUnits = ({
     },
   ];
 
+  const allUnitsContent = (
+    <UnitsTable
+      data={studentStages}
+      emptyIcon="fileTray"
+      emptyPhrase="No units"
+    />
+  );
+
+  const normalUnitsContent = (
+    <UnitsTable
+      emptyIcon="fileTray"
+      emptyPhrase="No units"
+      data={currentStage ? [currentStage] : []}
+    />
+  );
+
   const unitTabs: (TabItem & { columns: ColumnDef<any, any>[] })[] = [
     {
-      value: ALL,
+      value: UnitTabsSections.ALL.toString(),
       icon: "documents",
-      label: "All Registered Units",
       columns: allUnitsColumns,
-      content: (
-        <UnitsTable
-          data={studentStages}
-          emptyIcon="fileTray"
-          emptyPhrase="No units"
-        />
-      ),
+      content: allUnitsContent,
+      label: "All Registered Units",
     },
     {
-      value: NORMAL,
+      value: UnitTabsSections.NORMAL.toString(),
       icon: "document",
+      content: normalUnitsContent,
       columns: normalUnitsColumns,
       label: "Normal Registration",
       button: currentStage
@@ -137,13 +152,6 @@ export const useUnits = ({
             children: "Register Units",
             onClick: handlRegisterCourse,
           },
-      content: (
-        <UnitsTable
-          emptyIcon="fileTray"
-          emptyPhrase="No units"
-          data={currentStage ? [currentStage] : []}
-        />
-      ),
     },
     // {
     //   icon: "documentText",

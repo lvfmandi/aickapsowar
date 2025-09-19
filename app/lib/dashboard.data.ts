@@ -21,27 +21,6 @@ export const financeData = [
   },
 ];
 
-export const lectureCards = [
-  {
-    number: 60,
-    completed: true,
-    label: "Temporary Card",
-    description: "Temporary Card",
-  },
-  {
-    number: 80,
-    completed: true,
-    label: "Permanent Card",
-    description: "Permanent Card",
-  },
-  {
-    number: 100,
-    completed: false,
-    label: "Exam Card",
-    description: "Exam Card",
-  },
-];
-
 export const timetableCards = [
   {
     active: true,

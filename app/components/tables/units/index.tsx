@@ -1,5 +1,6 @@
+import type { Stage } from "~/lib/types/units.d";
+
 import type { Icons } from "~/components/utils/icons";
-import type { Stage } from "~/lib/types/units";
 import { columns } from "~/components/tables/units/columns";
 import { DataTable } from "~/components/tables/utils/data-table";
 

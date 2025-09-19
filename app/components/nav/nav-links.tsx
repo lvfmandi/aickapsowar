@@ -1,5 +1,5 @@
 import { toast } from "sonner";
-import { NavLink, useNavigate } from "react-router";
+import { NavLink, useLocation, useNavigate } from "react-router";
 
 import { logout } from "~/api/auth/logout";
 
@@ -11,6 +11,9 @@ import { SheetClose } from "~/components/ui/sheet";
 import { IconText } from "~/components/utils/icon-text";
 
 export const NavLinks = ({ mobile }: { mobile?: boolean }) => {
+  const location = useLocation();
+  console.log({ location });
+
   const navigate = useNavigate();
 
   const Wrapper = mobile ? SheetClose : "div";
@@ -33,12 +36,16 @@ export const NavLinks = ({ mobile }: { mobile?: boolean }) => {
         {navItems.map(({ to, icon, label }) => (
           <Wrapper key={label} {...wrapperProps}>
             <NavLink to={`/dashboard${to}`}>
-              {({ isActive }) => (
+              {() => (
                 <IconText
                   icon={icon}
                   text={label}
-                  active={isActive}
-                  className={cn(isActive && "border-l-4 border-l-primary/90")}
+                  active={location.pathname == `/dashboard${to}`}
+                  className={cn(
+                    "transition-colors duration-200 text-foreground hover:bg-primary/70 hover:text-background",
+                    location.pathname == `/dashboard${to}` &&
+                      "bg-primary/70 hover:bg-primary/90 hover:text-background"
+                  )}
                 />
               )}
             </NavLink>
@@ -46,7 +53,6 @@ export const NavLinks = ({ mobile }: { mobile?: boolean }) => {
         ))}
       </ul>
       <Button
-        // TODO: Implement logging out
         onClick={handleLogout}
         className={cn(
           mobile ? "h-15" : "h-12",

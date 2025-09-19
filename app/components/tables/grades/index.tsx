@@ -1,4 +1,4 @@
-import type { Stage } from "~/lib/types/units";
+import type { Stage } from "~/lib/types/units.d";
 
 import type { Icons } from "~/components/utils/icons";
 import { columns } from "~/components/tables/grades/columns";

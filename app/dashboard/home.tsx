@@ -1,8 +1,9 @@
+import { financeData } from "~/lib/dashboard.data";
 import { fetchUnitsData } from "~/lib/data-helpers/units.data";
-import { financeData, lectureCards } from "~/lib/dashboard.data";
-import type { ProgramUnit, Stage, StudentUnit } from "~/lib/types/units";
+import type { ProgramUnit, Stage, StudentUnit } from "~/lib/types/units.d";
 
 import type { Route } from "./+types/home";
+import { useCards } from "~/components/hooks/use-cards";
 import { useUnits } from "~/components/hooks/use-units";
 import { UnitsCard } from "~/components/dashboard/units-card";
 import { FinanceCard } from "~/components/dashboard/finance-card";
@@ -12,28 +13,24 @@ import { DashbaordContentLayout } from "~/components/dashboard/content-layout";
 import { DesktopNotifications } from "~/components/notifications/desktop-notifications";
 
 export async function clientLoader({}: Route.ClientLoaderArgs) {
-  return await fetchUnitsData();
+  const unitsInfo = await fetchUnitsData();
+  return { unitsInfo };
 }
 
 export default function Home({ loaderData }: Route.ComponentProps) {
-  const {
-    stages = [],
-    prgmUnits = [],
-    stdtUnits = [],
-    confirmRegistration = null,
-  } = loaderData as {
-    stages?: Stage[];
-    prgmUnits?: ProgramUnit[];
-    stdtUnits?: StudentUnit[];
-    confirmRegistration?: Stage;
+  const { unitsInfo } = loaderData as {
+    unitsInfo: {
+      stages: Stage[];
+      prgmUnits: ProgramUnit[];
+      stdtUnits: StudentUnit[];
+      confirmRegistration: Stage | null;
+    };
   };
 
-  const { unitsData } = useUnits({
-    stages,
-    prgmUnits,
-    stdtUnits,
-    confirmRegistration,
-  });
+  console.log({ unitsInfo });
+
+  const { lectureCards } = useCards();
+  const { unitsData } = useUnits(unitsInfo);
 
   // TODO: fetch the real data
   return (

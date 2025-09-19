@@ -1,8 +1,8 @@
+import { useStore } from "~/lib/store/index.store";
+
 import { Input } from "~/components/ui/input";
 import { UserAvatar } from "~/components/utils/user-avatar";
 import { MobileNotifications } from "~/components/notifications/mobile-notifications";
-import { useStore } from "~/lib/store/index.store";
-import { ThemeToggle } from "./theme-toggle";
 
 export const FastActions = () => {
   const user = useStore((state) => state.user);
@@ -10,10 +10,11 @@ export const FastActions = () => {
   const [firstName, lastName] = userName?.split(" ") || [];
 
   return (
-    <div className="flex gap-4 h-fit items-center justify-between container py-4 lg:px-4 bg-background border-b">
+    <div className="bg-background text-foreground flex gap-4 h-fit items-center justify-between container py-4 lg:px-4 border-b">
       <div className="flex items-center gap-4 w-full">
-        {/* TODO: Change the name */}
-        <h1 className="font-light text-xl">Hello, {user ? firstName : "..."}</h1>
+        <h1 className="font-light text-xl">
+          Hello, {user ? firstName : "..."}
+        </h1>
         {/* TODO: Add functionality of searching */}
         <Input
           type="search"
@@ -22,7 +23,6 @@ export const FastActions = () => {
         />
       </div>
       <div className="flex gap-4 items-center">
-        <ThemeToggle />
         <MobileNotifications />
         {/* TODO: Add functionality of avatar */}
         <UserAvatar
