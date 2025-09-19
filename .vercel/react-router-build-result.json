@@ -1,185 +1,111 @@
 {
   "buildManifest": {
-    "serverBundles": {
-      "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0": {
-        "id": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
-        "file": "build/server/nodejs_eyJydW50aW1lIjoibm9kZWpzIn0/index.js",
-        "config": {
-          "runtime": "nodejs"
-        }
-      }
-    },
-    "routeIdToServerBundleId": {
-      "home": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
-      "auth/login": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
-      "auth/reset-password": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
-      "auth/forgot-password": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
-      "dashboard/home": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
-      "dashboard/units": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
-      "dashboard/grades": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
-      "dashboard/finances": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
-      "dashboard/timetable": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
-      "dashboard/graduation": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
-      "dashboard/lecture-cards": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
-      "dashboard/hostel-booking": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
-      "dashboard/suggestion-box": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
-      "dashboard/account-management": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0",
-      "dashboard/academic-requisition": "nodejs_eyJydW50aW1lIjoibm9kZWpzIn0"
-    },
     "routes": {
       "root": {
         "path": "",
         "id": "root",
-        "file": "app/root.tsx",
-        "config": {}
+        "file": "root.tsx"
       },
       "home": {
         "id": "home",
         "parentId": "root",
-        "file": "app/home.tsx",
-        "index": true,
-        "config": {
-          "runtime": "nodejs"
-        }
+        "file": "./home.tsx",
+        "index": true
       },
       "auth/layout": {
         "id": "auth/layout",
         "parentId": "root",
-        "file": "app/auth/layout.tsx",
-        "config": {}
+        "file": "./auth/layout.tsx"
       },
       "auth/login": {
         "id": "auth/login",
         "parentId": "auth/layout",
-        "file": "app/auth/login.tsx",
-        "path": "auth/login",
-        "config": {
-          "runtime": "nodejs"
-        }
+        "file": "./auth/login.tsx",
+        "path": "auth/login"
       },
       "auth/reset-password": {
         "id": "auth/reset-password",
         "parentId": "auth/layout",
-        "file": "app/auth/reset-password.tsx",
-        "path": "auth/reset-password",
-        "config": {
-          "runtime": "nodejs"
-        }
+        "file": "./auth/reset-password.tsx",
+        "path": "auth/reset-password"
       },
       "auth/forgot-password": {
         "id": "auth/forgot-password",
         "parentId": "auth/layout",
-        "file": "app/auth/forgot-password.tsx",
-        "path": "auth/forgot-password",
-        "config": {
-          "runtime": "nodejs"
-        }
+        "file": "./auth/forgot-password.tsx",
+        "path": "auth/forgot-password"
       },
       "dashboard/layout": {
         "id": "dashboard/layout",
         "parentId": "root",
-        "file": "app/dashboard/layout.tsx",
-        "path": "dashboard",
-        "config": {}
+        "file": "./dashboard/layout.tsx",
+        "path": "dashboard"
       },
       "dashboard/home": {
         "id": "dashboard/home",
         "parentId": "dashboard/layout",
-        "file": "app/dashboard/home.tsx",
-        "index": true,
-        "config": {
-          "runtime": "nodejs"
-        }
+        "file": "./dashboard/home.tsx",
+        "index": true
       },
       "dashboard/units": {
         "id": "dashboard/units",
         "parentId": "dashboard/layout",
-        "file": "app/dashboard/units.tsx",
-        "path": "units",
-        "config": {
-          "runtime": "nodejs"
-        }
+        "file": "./dashboard/units.tsx",
+        "path": "units"
       },
       "dashboard/grades": {
         "id": "dashboard/grades",
         "parentId": "dashboard/layout",
-        "file": "app/dashboard/grades.tsx",
-        "path": "grades",
-        "config": {
-          "runtime": "nodejs"
-        }
+        "file": "./dashboard/grades.tsx",
+        "path": "grades"
       },
       "dashboard/finances": {
         "id": "dashboard/finances",
         "parentId": "dashboard/layout",
-        "file": "app/dashboard/finances.tsx",
-        "path": "finances",
-        "config": {
-          "runtime": "nodejs"
-        }
+        "file": "./dashboard/finances.tsx",
+        "path": "finances"
       },
       "dashboard/timetable": {
         "id": "dashboard/timetable",
         "parentId": "dashboard/layout",
-        "file": "app/dashboard/timetable.tsx",
-        "path": "timetable",
-        "config": {
-          "runtime": "nodejs"
-        }
+        "file": "./dashboard/timetable.tsx",
+        "path": "timetable"
       },
       "dashboard/graduation": {
         "id": "dashboard/graduation",
         "parentId": "dashboard/layout",
-        "file": "app/dashboard/graduation.tsx",
-        "path": "graduation",
-        "config": {
-          "runtime": "nodejs"
-        }
+        "file": "./dashboard/graduation.tsx",
+        "path": "graduation"
       },
       "dashboard/lecture-cards": {
         "id": "dashboard/lecture-cards",
         "parentId": "dashboard/layout",
-        "file": "app/dashboard/lecture-cards.tsx",
-        "path": "lecture-cards",
-        "config": {
-          "runtime": "nodejs"
-        }
+        "file": "./dashboard/lecture-cards.tsx",
+        "path": "lecture-cards"
       },
       "dashboard/hostel-booking": {
         "id": "dashboard/hostel-booking",
         "parentId": "dashboard/layout",
-        "file": "app/dashboard/hostel-booking.tsx",
-        "path": "hostel-booking",
-        "config": {
-          "runtime": "nodejs"
-        }
+        "file": "./dashboard/hostel-booking.tsx",
+        "path": "hostel-booking"
       },
       "dashboard/suggestion-box": {
         "id": "dashboard/suggestion-box",
         "parentId": "dashboard/layout",
-        "file": "app/dashboard/suggestion-box.tsx",
-        "path": "suggestion-box",
-        "config": {
-          "runtime": "nodejs"
-        }
+        "file": "./dashboard/suggestion-box.tsx",
+        "path": "suggestion-box"
       },
       "dashboard/account-management": {
         "id": "dashboard/account-management",
         "parentId": "dashboard/layout",
-        "file": "app/dashboard/account-management.tsx",
-        "path": "account-management",
-        "config": {
-          "runtime": "nodejs"
-        }
+        "file": "./dashboard/account-management.tsx",
+        "path": "account-management"
       },
       "dashboard/academic-requisition": {
         "id": "dashboard/academic-requisition",
         "parentId": "dashboard/layout",
-        "file": "app/dashboard/academic-requisition.tsx",
-        "path": "academic-requisition",
-        "config": {
-          "runtime": "nodejs"
-        }
+        "file": "./dashboard/academic-requisition.tsx",
+        "path": "academic-requisition"
       }
     }
   },
@@ -303,12 +229,11 @@
       }
     },
     "routeDiscovery": {
-      "mode": "lazy",
-      "manifestPath": "/__manifest"
+      "mode": "initial"
     },
     "serverBuildFile": "index.js",
     "serverModuleFormat": "esm",
-    "ssr": true
+    "ssr": false
   },
   "viteConfig": {
     "build": {
