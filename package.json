@@ -23,6 +23,7 @@
     "@react-router/serve": "^7.5.3",
     "@tanstack/react-table": "^8.21.3",
     "@types/lodash": "^4.17.20",
+    "@vercel/react-router": "^1.2.3",
     "axios": "^1.11.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

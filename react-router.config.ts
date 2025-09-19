@@ -1,3 +1,4 @@
+import { vercelPreset } from "@vercel/react-router/vite";
 import type { Config } from "@react-router/dev/config";
 
 export default {
@@ -7,4 +8,5 @@ export default {
   future: {
     unstable_middleware: true,
   },
+  presets: [vercelPreset()],
 } satisfies Config;
