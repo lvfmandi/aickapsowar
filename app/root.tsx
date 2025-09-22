@@ -16,6 +16,7 @@ import type { Route } from "./+types/root";
 import { useStore } from "~/lib/store/index.store";
 
 import { Toaster } from "~/components/ui/sonner";
+import { Logo } from "./components/utils/logo";
 
 axios.defaults.baseURL = API_URL;
 axios.defaults.withCredentials = true;
@@ -72,6 +73,17 @@ export default function App() {
       <Outlet />
       <Toaster richColors position="top-center" />
     </>
+  );
+}
+
+export function HydrateFallback() {
+  return (
+    <div className="h-screen w-screen flex items-center justify-center">
+      <Logo
+        text
+        className="animate-pulse flex-col justify-center gap-2 text-center"
+      />
+    </div>
   );
 }
 

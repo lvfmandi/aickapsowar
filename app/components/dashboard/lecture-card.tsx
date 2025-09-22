@@ -62,11 +62,20 @@ export const LectureCard = ({ data }: { data: LectureCard }) => {
           description={`You can print or download the ${label}`}
         />
         <p className="font-mono text-[10px] text-foreground/50">
-          At least{" "}
-          <span className="text-foreground font-medium">
-            {percentageFormarter(number / 100)}
-          </span>{" "}
-          of fees has to be completed
+          {number === 100 ? (
+            <span>
+              All your fees have to be fully paid in order to print the exam
+              card.
+            </span>
+          ) : (
+            <span>
+              At least{" "}
+              <span className="text-foreground font-medium">
+                {percentageFormarter(number / 100)}
+              </span>{" "}
+              of fees has to be completed.
+            </span>
+          )}
         </p>
       </div>
     </li>

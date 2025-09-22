@@ -24,7 +24,7 @@ export const LoginForm = () => {
         <div className="grid gap-1.5 font-normal">
           <p className="font-medium text-sm leading-none">Remember Me</p>
           <span className="text-muted-foreground leading-[18px]">
-            Your credentials will be remembered for the next time you log in
+            Your will have a longer session, which means you can access the portal for a little bit longer.
           </span>
         </div>
       </Label>
