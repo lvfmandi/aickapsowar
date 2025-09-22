@@ -15,8 +15,9 @@ import { API_URL } from "~/api/urls";
 import type { Route } from "./+types/root";
 import { useStore } from "~/lib/store/index.store";
 
+import { Logo } from "~/components/utils/logo";
 import { Toaster } from "~/components/ui/sonner";
-import { Logo } from "./components/utils/logo";
+import { LoaderImage } from "~/components/utils/loader";
 
 axios.defaults.baseURL = API_URL;
 axios.defaults.withCredentials = true;
@@ -78,11 +79,13 @@ export default function App() {
 
 export function HydrateFallback() {
   return (
-    <div className="h-screen w-screen flex items-center justify-center">
-      <Logo
-        text
-        className="animate-pulse flex-col justify-center gap-2 text-center"
-      />
+    <div className="h-screen w-screen flex flex-col items-center justify-center">
+      <div className="flex flex-col items-center ">
+        <LoaderImage />
+        <span className="text-primary text-center">
+          Hold on, just wait as we fetch your page...
+        </span>
+      </div>
     </div>
   );
 }
