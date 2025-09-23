@@ -1,7 +1,11 @@
+import { cn } from "~/lib/utils";
+
 export const LoaderImage = ({
-  color = "#f96507",
+  size,
   className = "",
+  color = "#f96507",
 }: {
+  size?: string;
   color?: string;
   className?: string;
 }) => {
@@ -10,7 +14,7 @@ export const LoaderImage = ({
       width="98"
       height="98"
       viewBox="0 0 100 100"
-      className="animate-spin size-30"
+      className={cn("animate-spin", size ?? "size-8")}
       preserveAspectRatio="xMidYMid"
       xmlns="http://www.w3.org/2000/svg"
       style={{ shapeRendering: "auto", display: "block" }}

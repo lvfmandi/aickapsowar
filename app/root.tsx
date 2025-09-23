@@ -81,7 +81,7 @@ export function HydrateFallback() {
   return (
     <div className="h-screen w-screen flex flex-col items-center justify-center">
       <div className="flex flex-col items-center ">
-        <LoaderImage />
+        <LoaderImage size="size-30" />
         <span className="text-primary text-center">
           Hold on, just wait as we fetch your page...
         </span>
