@@ -1,25 +1,17 @@
-export const financeData = [
-  {
-    label: "Total Fees",
-    amountPaid: 50000,
-    percentage: 80,
-  },
-  {
-    label: "Tuition Fees",
-    amountPaid: 27360,
-    percentage: 64.38,
-  },
-  {
-    label: "Hostel Fees",
-    amountPaid: 10000,
-    percentage: 100,
-  },
-  {
-    label: "Other Charges",
-    amountPaid: 12640,
-    percentage: 100,
-  },
-];
+export const defaultFeesInsights = {
+  "Tuition Fee (Amount)": "0",
+  "Tuition Fee (Paid)": "0",
+  "Tuition Fee (%)": "0",
+  "Hostel Fee (Amount)": "0",
+  "Hostel Fee (Paid)": "0",
+  "Hostel Fee (%)": "0",
+  "Other Charges (Amount)": "0",
+  "Other Charges (Paid)": "0",
+  "Other Charges (%)": "0",
+  "Total Charges (Amount)": "0",
+  "Total Charges (Paid)": "0",
+  "Total Charges (%)": "0",
+};
 
 export const timetableCards = [
   {

@@ -1,10 +1,12 @@
 import { toast } from "sonner";
 
-import { financeData } from "~/lib/dashboard.data";
+import { defaultFeesInsights } from "~/lib/dashboard.data";
+import type { FinanceInsights } from "~/lib/types/finance";
 
 import { getReceipts } from "~/api/finance/getReceipts";
 import { getFeeStatement } from "~/api/finance/getFeeStatement";
 import { getFeeStructure } from "~/api/finance/getFeeStructure";
+import { getFinanceInsights } from "~/api/finance/getFinanceInsights";
 
 import type { Route } from "./+types/finances";
 import { Receipts } from "~/components/tables/receipts";
@@ -15,22 +17,37 @@ import { TabsUtils, type TabItem } from "~/components/utils/tabs-utils";
 import { DashboardCardSection } from "~/components/dashboard/card-section";
 import { DashbaordContentLayout } from "~/components/dashboard/content-layout";
 import { DesktopNotifications } from "~/components/notifications/desktop-notifications";
+import { useFinance } from "~/components/hooks/use-finance";
 
 export const clientLoader = async ({}: Route.ClientLoaderArgs) => {
   const [
     { data: receipts = [], error: receiptsError },
     { data: feeStatement = [], error: feeStatementError },
     { data: feeStructure = [], error: feeStructureError },
-  ] = await Promise.all([getReceipts(), getFeeStatement(), getFeeStructure()]);
+    { data: feesInsights = defaultFeesInsights, error: feesInsightsError },
+  ] = await Promise.all([
+    getReceipts(),
+    getFeeStatement(),
+    getFeeStructure(),
+    getFinanceInsights(),
+  ]);
 
-  const baseError = receiptsError ?? feeStatementError ?? feeStructureError;
+  const baseError =
+    receiptsError ??
+    feeStatementError ??
+    feeStructureError ??
+    feesInsightsError;
+
   if (baseError) toast.error(baseError);
 
-  return { receipts, feeStatement, feeStructure };
+  return { receipts, feeStatement, feeStructure, feesInsights };
 };
 
 export default function Finances({ loaderData }: Route.ComponentProps) {
-  const { receipts, feeStatement, feeStructure } = loaderData;
+  const { receipts, feeStatement, feeStructure, feesInsights } = loaderData;
+  const { convertFeesToFinanceData } = useFinance();
+
+  const financeData = convertFeesToFinanceData(feesInsights);
 
   const financeTabs: TabItem[] = [
     {

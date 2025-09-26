@@ -46,3 +46,6 @@ export const GET_OFFICIAL_RESULTS = "/api/Grades/getOfficialResults";
 //Accounts
 export const GET_STUDENT_INFO = "/api/Accounts/getUserDetails";
 export const POST_STUDENT_INFO = "/api/Accounts/postUserDetails";
+
+// Utils
+export const GET_FEES_INSIGHTS = "/api/Utils/getfinanceInsights";
