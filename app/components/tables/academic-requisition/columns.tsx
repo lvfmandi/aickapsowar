@@ -8,6 +8,8 @@ import { Link } from "react-router";
 import { MoreHorizontal } from "lucide-react";
 
 import { cn } from "~/lib/utils";
+import type { AcademicRequisition } from "~/lib/types/requisitions";
+
 import {
   DropdownMenu,
   DropdownMenuLabel,
@@ -20,15 +22,15 @@ import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import { DataTableColumnHeader } from "~/components/tables/utils/column-header";
 
-export type AcademicRequisition = {
-  type: string; // e.g., "Academic Leave", "Return from Leave", "Special Exam", etc.
-  requestedDate: Date;
-  reason: string;
-  supportingDocuments: string[]; // could be file URLs or paths
-  status: "Pending" | "Approved" | "Rejected";
-  reviewedBy?: string; // optional in case it hasn't been reviewed yet
-  reviewedAt?: Date; // optional in case it hasn't been reviewed yet
-};
+// export type AcademicRequisition = {
+//   type: string; // e.g., "Academic Leave", "Return from Leave", "Special Exam", etc.
+//   requestedDate: Date;
+//   reason: string;
+//   supportingDocuments: string[]; // could be file URLs or paths
+//   status: "Pending" | "Approved" | "Rejected";
+//   reviewedBy?: string; // optional in case it hasn't been reviewed yet
+//   reviewedAt?: Date; // optional in case it hasn't been reviewed yet
+// };
 
 const dateCell: (
   props: CellContext<AcademicRequisition, unknown>
@@ -37,6 +39,22 @@ const dateCell: (
     {dayjs(getValue() as Date).format("D MMM YYYY") as number | string}
   </span>
 );
+
+const timeCell: (
+  props: CellContext<AcademicRequisition, unknown>
+) => React.ReactNode = ({ getValue }) => {
+  const [h, m] = (getValue() as string).split(":");
+  const hours = Number(h);
+  const minutes = m.padStart(2, "0");
+  const ampm = hours >= 12 ? "PM" : "AM";
+  const formatted = `${((hours + 11) % 12) + 1}:${minutes} ${ampm}`;
+
+  return (
+    <span className="inline-table font-light font-mono text-xs">
+      {formatted}
+    </span>
+  );
+};
 
 const fileCell: (
   props: CellContext<AcademicRequisition, unknown>
@@ -58,9 +76,10 @@ const fileCell: (
 );
 
 const statusColors = {
-  Approved: { color: "#ffffff", backgroundColor: "#10B981" },
+  Open: { color: "#ffffff", backgroundColor: "#0066CC" },
   Pending: { color: "#ffffff", backgroundColor: "#F59E0B" },
-  Rejected: { color: "#ffffff", backgroundColor: "#EF4444" },
+  Approved: { color: "#ffffff", backgroundColor: "#10B981" },
+  "Back to School": { color: "#ffffff", backgroundColor: "#b644efff" },
 };
 
 const statusCell: (
@@ -69,9 +88,10 @@ const statusCell: (
   <Badge asChild variant={"outline"}>
     <span
       style={{
-        color: statusColors[getValue() as keyof typeof statusColors].color,
+        color: statusColors[getValue() as keyof typeof statusColors]?.color,
         backgroundColor:
-          statusColors[getValue() as keyof typeof statusColors].backgroundColor,
+          statusColors[getValue() as keyof typeof statusColors]
+            ?.backgroundColor,
       }}
       className={cn("flex items-center gap-1", `bg-[#F59E0B]`)}
     >
@@ -112,37 +132,47 @@ export const columns: ColumnDef<AcademicRequisition, any>[] = [
     enableSorting: false,
   }),
 
-  columnHelper.accessor("type", {
+  columnHelper.accessor(
+    (row) =>
+      new Date(
+        row.leave_Out_Date.year,
+        row.leave_Out_Date.month,
+        row.leave_Out_Date.day
+      ),
+    {
+      id: "leaveOutDate",
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="Leave Out Date" />
+      ),
+      cell: dateCell,
+      enableSorting: true,
+    }
+  ),
+
+  columnHelper.accessor(
+    (row) =>
+      new Date(
+        row.return_Date.year,
+        row.return_Date.month,
+        row.return_Date.day
+      ),
+    {
+      id: "returnDate",
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="Return Date" />
+      ),
+      cell: dateCell,
+      enableSorting: true,
+    }
+  ),
+
+  columnHelper.accessor("leave_out_Tme", {
+    id: "leave_out_Tme",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Type of Requisition" />
+      <DataTableColumnHeader column={column} title="Leave Out Time" />
     ),
-    cell: (info) => info.getValue(),
+    cell: timeCell,
     enableSorting: true,
-  }),
-
-  columnHelper.accessor((row) => new Date(row.requestedDate), {
-    id: "requestedDate",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Requested Date" />
-    ),
-    cell: dateCell,
-    enableSorting: true,
-  }),
-
-  columnHelper.accessor("reason", {
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Reason" />
-    ),
-    cell: (info) => info.getValue(),
-    enableSorting: false,
-  }),
-
-  columnHelper.accessor("supportingDocuments", {
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Documents" />
-    ),
-    cell: fileCell,
-    enableSorting: false,
   }),
 
   columnHelper.accessor("status", {
@@ -153,19 +183,11 @@ export const columns: ColumnDef<AcademicRequisition, any>[] = [
     enableSorting: true,
   }),
 
-  columnHelper.accessor("reviewedBy", {
+  columnHelper.accessor("reason", {
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Reviewed By" />
+      <DataTableColumnHeader column={column} title="Reason" />
     ),
     cell: (info) => info.getValue(),
     enableSorting: false,
-  }),
-
-  columnHelper.accessor("reviewedAt", {
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Reviewed At" />
-    ),
-    cell: dateCell,
-    enableSorting: true,
   }),
 ];

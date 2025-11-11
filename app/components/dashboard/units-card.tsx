@@ -38,7 +38,7 @@ export const UnitsCard = ({ data }: { data: UnitData }) => {
         className={cn(
           "flex p-4 gap-8 justify-between h-full",
           link
-            ? "flex-col-reverse bg-accent text-foreground hover:text-primary transition-colors duration-500 ease-in cursor-pointer"
+            ? "flex-col-reverse bg-accent text-foreground hover:text-primary hover:bg-primary-foreground transition-colors duration-500 ease-in cursor-pointer"
             : "flex-col"
         )}
       >

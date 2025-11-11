@@ -47,5 +47,10 @@ export const GET_OFFICIAL_RESULTS = "/api/Grades/getOfficialResults";
 export const GET_STUDENT_INFO = "/api/Accounts/getUserDetails";
 export const POST_STUDENT_INFO = "/api/Accounts/postUserDetails";
 
+//Requisition
+export const POST_ACADEMIC_LEAVE_OUT =
+  "/api/StudentRequisition/postStudentLeaveOut";
+export const GET_STUDENT_REQUISITIONS = "/api/StudentRequisition/getRequistions";
+
 // Utils
 export const GET_FEES_INSIGHTS = "/api/Utils/getfinanceInsights";

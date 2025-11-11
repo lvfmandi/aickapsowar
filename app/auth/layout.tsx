@@ -2,9 +2,10 @@ import { Outlet, redirect } from "react-router";
 
 import { fetchMe } from "~/api/auth/fetchMe";
 
+import KapsowarImage from "~/assets/kapsowar-image.jpg";
+
 import { useStore } from "~/lib/store/index.store";
 import { AuthWrapper } from "~/components/auth/auth-wrapper";
-import PeopleSmiling from "~/assets/people-smiling-thumbs-up.jpg";
 
 export async function clientLoader() {
   const { setUser } = useStore.getState();
@@ -21,7 +22,7 @@ export async function clientLoader() {
 
 export default function AuthLayout() {
   return (
-    <AuthWrapper src={PeopleSmiling}>
+    <AuthWrapper src={KapsowarImage}>
       <Outlet />
     </AuthWrapper>
   );

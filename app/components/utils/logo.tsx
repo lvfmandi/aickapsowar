@@ -1,12 +1,12 @@
 import { cn } from "~/lib/utils";
 
-import LogoImage from "~/assets/tsmhs.png";
+import LogoImage from "~/assets/logo.png";
 
 export const Logo = ({
   text,
   image,
   className,
-  alt = "Thika School for Medical and health sciences logo",
+  alt = "AIC Kapsowar Medical Training College logo",
 }: {
   alt?: string;
   className?: string;
@@ -21,11 +21,11 @@ export const Logo = ({
       {Boolean(text) && (
         <span
           className={cn(
-            "font-semibold text-primary max-w-3xs",
+            "font-semibold text-primary max-w-3xs uppercase",
             textIsObject && text?.className
           )}
         >
-          THIKA SCHOOL OF MEDICAL AND HEALTH SCIENCES
+          AIC Kapsowar Medical Training College
         </span>
       )}
     </div>

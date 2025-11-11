@@ -18,11 +18,11 @@ export const navItems: NavItem[] = [
     icon: "layers",
     label: "Units",
   },
-  {
-    to: "/lecture-cards",
-    icon: "idCard",
-    label: "Lecture Cards",
-  },
+  // {
+  //   to: "/lecture-cards",
+  //   icon: "idCard",
+  //   label: "Lecture Cards",
+  // },
   // {
   //   to: "/timetable",
   //   icon: "calendar",
@@ -31,18 +31,18 @@ export const navItems: NavItem[] = [
   {
     to: "/grades",
     icon: "receipt",
-    label: "Grades",
-  },
-  {
-    to: "/hostel-booking",
-    icon: "bed",
-    label: "Hostel Booking",
+    label: "Transcripts",
   },
   // {
-  //   to: "/academic-requisition",
-  //   icon: "send",
-  //   label: "Academic Requisition",
+  //   to: "/hostel-booking",
+  //   icon: "bed",
+  //   label: "Hostel Booking",
   // },
+  {
+    to: "/student-requisition",
+    icon: "send",
+    label: "Student Requisition",
+  },
   // {
   //   to: "/graduation",
   //   icon: "school",

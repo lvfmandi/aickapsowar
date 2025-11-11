@@ -11,23 +11,23 @@ export const useFinance = () => {
     return [
       {
         label: "Total Fees",
-        amountPaid: parseFloat(fees["Total Charges (Paid)"].replace(/,/g, "")),
-        percentage: parseFloat(fees["Total Charges (%)"].replace(/,/g, "")),
+        amountPaid: parseFloat(fees["Total Charges (Paid)"]?.replace(/,/g, "")),
+        percentage: parseFloat(fees["Total Charges (%)"]?.replace(/,/g, "")),
       },
       {
         label: "Tuition Fees",
-        amountPaid: parseFloat(fees["Tuition Fee (Paid)"].replace(/,/g, "")),
-        percentage: parseFloat(fees["Tuition Fee (%)"].replace(/,/g, "")),
+        amountPaid: parseFloat(fees["Tuition Fee (Paid)"]?.replace(/,/g, "")),
+        percentage: parseFloat(fees["Tuition Fee (%)"]?.replace(/,/g, "")),
       },
       {
         label: "Hostel Fees",
-        amountPaid: parseFloat(fees["Hostel Fee (Paid)"].replace(/,/g, "")),
-        percentage: parseFloat(fees["Hostel Fee (%)"].replace(/,/g, "")),
+        amountPaid: parseFloat(fees["Hostel Fee (Paid)"]?.replace(/,/g, "")),
+        percentage: parseFloat(fees["Hostel Fee (%)"]?.replace(/,/g, "")),
       },
       {
         label: "Other Charges",
-        amountPaid: parseFloat(fees["Other Charges (Paid)"].replace(/,/g, "")),
-        percentage: parseFloat(fees["Other Charges (%)"].replace(/,/g, "")),
+        amountPaid: parseFloat(fees["Other Charges (Paid)"]?.replace(/,/g, "")),
+        percentage: parseFloat(fees["Other Charges (%)"]?.replace(/,/g, "")),
       },
     ];
   }

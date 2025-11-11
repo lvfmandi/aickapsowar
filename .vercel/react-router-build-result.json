@@ -110,9 +110,9 @@
     }
   },
   "reactRouterConfig": {
-    "appDirectory": "C:/Users/Lovefrom Oliver/Desktop/projects/tsmhs/app",
+    "appDirectory": "C:/Users/Lovefrom Oliver/Desktop/projects/kapsowar-students/app",
     "basename": "/",
-    "buildDirectory": "C:/Users/Lovefrom Oliver/Desktop/projects/tsmhs/build",
+    "buildDirectory": "C:/Users/Lovefrom Oliver/Desktop/projects/kapsowar-students/build",
     "future": {
       "unstable_middleware": true,
       "unstable_optimizeDeps": false,

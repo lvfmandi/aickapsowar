@@ -33,6 +33,11 @@ export const LectureCard = ({ data }: { data: LectureCard }) => {
         setOpen(false);
         toast.error(error);
       }
+      console.log({ data });
+      if (!data || data === "") {
+        setOpen(false);
+        toast.warning("No report was found");
+      }
       if (data) setBase64(data ?? null);
     });
   };

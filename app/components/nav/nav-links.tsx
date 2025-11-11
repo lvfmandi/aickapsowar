@@ -42,9 +42,9 @@ export const NavLinks = ({ mobile }: { mobile?: boolean }) => {
                   text={label}
                   active={location.pathname == `/dashboard${to}`}
                   className={cn(
-                    "transition-colors duration-200 text-foreground hover:bg-primary/70 hover:text-background",
+                    "transition-colors duration-200 text-foreground hover:bg-primary/70 hover:text-primary-foreground",
                     location.pathname == `/dashboard${to}` &&
-                      "bg-primary/70 hover:bg-primary/90 hover:text-background"
+                      "bg-primary/70 hover:bg-primary/90 hover:text-primary-foreground"
                   )}
                 />
               )}

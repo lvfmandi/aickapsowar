@@ -8,12 +8,10 @@ import { fetchUnitsData } from "~/lib/data-helpers/units.data";
 import type { ProgramUnit, Stage, StudentUnit } from "~/lib/types/units.d";
 
 import type { Route } from "./+types/home";
-import { useCards } from "~/components/hooks/use-cards";
 import { useUnits } from "~/components/hooks/use-units";
 import { useFinance } from "~/components/hooks/use-finance";
 import { UnitsCard } from "~/components/dashboard/units-card";
 import { FinanceCard } from "~/components/dashboard/finance-card";
-import { LectureCard } from "~/components/dashboard/lecture-card";
 import { DashboardCardSection } from "~/components/dashboard/card-section";
 import { DashbaordContentLayout } from "~/components/dashboard/content-layout";
 import { DesktopNotifications } from "~/components/notifications/desktop-notifications";
@@ -40,7 +38,6 @@ export default function Home({ loaderData }: Route.ComponentProps) {
   const { convertFeesToFinanceData } = useFinance();
   const financeData = convertFeesToFinanceData(financeInsights);
 
-  const { lectureCards } = useCards();
   const { unitsData } = useUnits(unitsInfo);
 
   return (
@@ -59,12 +56,12 @@ export default function Home({ loaderData }: Route.ComponentProps) {
             items={unitsData}
             itemComponent={UnitsCard}
           />
-          <DashboardCardSection
+          {/* <DashboardCardSection
             icon={"idCard"}
             items={lectureCards}
             title={"Lecture Cards"}
             itemComponent={LectureCard}
-          />
+          /> */}
         </div>
       </DashbaordContentLayout>
       <DesktopNotifications />

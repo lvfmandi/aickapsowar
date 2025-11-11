@@ -106,7 +106,9 @@ export const useUnits = ({
     },
     {
       label: "Attempted Units",
-      number: studentStages.reduce((acc, curr) => acc + curr.units_Taken, 0),
+      number: Array.isArray(studentStages)
+        ? studentStages.reduce((acc, curr) => acc + curr.units_Taken, 0)
+        : 0,
       description: `Since the beginning`,
     },
     {

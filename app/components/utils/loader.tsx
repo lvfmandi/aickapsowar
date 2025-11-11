@@ -3,7 +3,7 @@ import { cn } from "~/lib/utils";
 export const LoaderImage = ({
   size,
   className = "",
-  color = "#f96507",
+  color = "#8D182A",
 }: {
   size?: string;
   color?: string;

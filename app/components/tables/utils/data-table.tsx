@@ -39,7 +39,7 @@ export function DataTable<TData, TValue>({
   searchColumn,
   searchPlaceholder,
   emptyIcon = "fileTray",
-  emptyPhrase = "No results!",
+  emptyPhrase = "No data!",
 }: DataTableProps<TData, TValue>) {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const table = useReactTable({
