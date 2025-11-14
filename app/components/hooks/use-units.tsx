@@ -73,8 +73,6 @@ export const useUnits = ({
 
       if (error) toast.error(error);
 
-      console.log({ data });
-
       if (!data) return;
 
       setCurrentStage(data ?? null);

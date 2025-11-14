@@ -1,4 +1,4 @@
-import { VerifiedIcon } from "lucide-react";
+import { VerifiedIcon, DoorOpenIcon } from "lucide-react";
 import {
   IoAlarmOutline,
   IoAlert,
@@ -27,6 +27,7 @@ import {
   IoLinkOutline,
   IoLogInOutline,
   IoLogOutOutline,
+  IoMedicalOutline,
   IoMenuOutline,
   IoNotificationsOutline,
   IoPeopleCircleOutline,
@@ -59,6 +60,7 @@ export const Icons = {
   happy: IoHappyOutline,
   logIn: IoLogInOutline,
   print: IoPrintOutline,
+  doorOpen: DoorOpenIcon,
   verified: VerifiedIcon,
   idCard: IoIdCardOutline,
   layers: IoLayersOutline,
@@ -69,10 +71,11 @@ export const Icons = {
   wallet: IoWalletOutline,
   repeat: IoRepeatOutline,
   reminder: IoAlarmOutline,
-  attached: IoAttachOutline,
+  chatbox: IoChatboxOutline,
+  medical: IoMedicalOutline,
   receipt: IoReceiptOutline,
   refresh: IoRefreshOutline,
-  chatbox: IoChatboxOutline,
+  attached: IoAttachOutline,
   document: IoDocumentOutline,
   fileTray: IoFileTrayOutline,
   calendar: IoCalendarOutline,

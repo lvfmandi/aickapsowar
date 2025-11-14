@@ -108,7 +108,6 @@ export const PrintFeeStatement = ({
 
         toast.error(error);
       }
-      console.log({ data, error });
 
       setBase64(data ?? null);
     });

@@ -50,7 +50,12 @@ export const POST_STUDENT_INFO = "/api/Accounts/postUserDetails";
 //Requisition
 export const POST_ACADEMIC_LEAVE_OUT =
   "/api/StudentRequisition/postStudentLeaveOut";
-export const GET_STUDENT_REQUISITIONS = "/api/StudentRequisition/getRequistions";
+export const GET_STUDENT_REQUISITIONS =
+  "/api/StudentRequisition/getRequistions";
+export const GET_PLACEMENT_HOSPITALS =
+  "/api/StudentRequisition/getPlacementHospitals";
+export const POST_MEDICAL_LEAVE = "/api/StudentRequisition/postMedicalLeave";
+export const POST_GATE_PASS = "/api/StudentRequisition/postGatePass";
 
 // Utils
 export const GET_FEES_INSIGHTS = "/api/Utils/getfinanceInsights";

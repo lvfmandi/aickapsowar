@@ -1,3 +1,5 @@
+import * as v from "valibot";
+import { toast } from "sonner";
 import { useState } from "react";
 import { Form } from "react-router";
 
@@ -11,16 +13,61 @@ import { Input } from "~/components/ui/input";
 import { Button } from "~/components/ui/button";
 import { Calendar } from "~/components/ui/calendar";
 import { TimePicker } from "~/components/ui/timepicker";
+import { AcademicRequisition as AcademicRequisitionTable } from "~/components/tables/academic-requisition";
 
-export const AcedmicLeave = () => {
-  const [returnTime, setReturnTime] = useState<string | undefined>("7:00 AM");
+import { convertDatesWithMonthCorrection } from "~/lib/utils";
+import type { LeaveOutRequisition } from "~/lib/types/requisitions";
+import { StudentRequisitionSchema } from "~/lib/schemas/student-requisition.schema";
+
+import { postAcademicLeave } from "~/api/requisition/postAcademicLeaveOut";
+
+export const academicLeaveOutAction = async ({
+  formData,
+}: {
+  formData: FormData;
+}) => {
+  const data = convertDatesWithMonthCorrection({
+    reason: formData.get("reason"),
+    whereTo: formData.get("whereTo"),
+    returnDate: formData.get("returnDate"),
+    returnTime: formData.get("returnTime"),
+    leaveOutDate: formData.get("leaveOutDate"),
+    leaveOutTime: formData.get("leaveOutTime"),
+  });
+
+  try {
+    const safeParse = v.safeParse(StudentRequisitionSchema, data);
+
+    if (!safeParse.success) {
+      toast.error(safeParse.issues[0].message);
+      return { issues: safeParse.issues };
+    }
+
+    if (safeParse.success) {
+      const { data, error } = await postAcademicLeave(safeParse.output);
+      if (error) toast.error(error);
+      if (data) toast.success("You have successfully sent your leave request");
+    }
+  } catch (error) {
+    toast.error("We couln't validate your data");
+  }
+};
+
+export const AcademicLeave = ({
+  leaveOutList,
+}: {
+  leaveOutList?: LeaveOutRequisition[];
+}) => {
+  const [calendar1Open, setCalendar1Open] = useState(false);
+  const [calendar2Open, setCalendar2Open] = useState(false);
+
   const [leaveOutTime, setLeaveOutTime] = useState<string | undefined>(
     "7:00 AM"
   );
-  const [calendar1Open, setCalendar1Open] = useState(false);
-  const [calendar2Open, setCalendar2Open] = useState(false);
-  const [returnDate, setReturnDate] = useState<Date | undefined>(undefined);
   const [leaveOutDate, setLeaveOutDate] = useState<Date | undefined>(undefined);
+
+  const [returnDate, setReturnDate] = useState<Date | undefined>(undefined);
+  const [returnTime, setReturnTime] = useState<string | undefined>("7:00 AM");
 
   return (
     <div>
@@ -149,7 +196,9 @@ export const AcedmicLeave = () => {
         />
         <Input type="hidden" name="returnTime" value={returnTime} />
         <Input type="hidden" name="leaveOutTime" value={leaveOutTime} />
+        <Input type="hidden" name="formType" value={"academicLeaveOut"} />
       </Form>
+      <AcademicRequisitionTable data={leaveOutList} />
     </div>
   );
 };

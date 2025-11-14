@@ -77,35 +77,17 @@
         "file": "./dashboard/graduation.tsx",
         "path": "graduation"
       },
-      "dashboard/lecture-cards": {
-        "id": "dashboard/lecture-cards",
-        "parentId": "dashboard/layout",
-        "file": "./dashboard/lecture-cards.tsx",
-        "path": "lecture-cards"
-      },
-      "dashboard/hostel-booking": {
-        "id": "dashboard/hostel-booking",
-        "parentId": "dashboard/layout",
-        "file": "./dashboard/hostel-booking.tsx",
-        "path": "hostel-booking"
-      },
-      "dashboard/suggestion-box": {
-        "id": "dashboard/suggestion-box",
-        "parentId": "dashboard/layout",
-        "file": "./dashboard/suggestion-box.tsx",
-        "path": "suggestion-box"
-      },
       "dashboard/account-management": {
         "id": "dashboard/account-management",
         "parentId": "dashboard/layout",
         "file": "./dashboard/account-management.tsx",
         "path": "account-management"
       },
-      "dashboard/academic-requisition": {
-        "id": "dashboard/academic-requisition",
+      "dashboard/student-requisition": {
+        "id": "dashboard/student-requisition",
         "parentId": "dashboard/layout",
-        "file": "./dashboard/academic-requisition.tsx",
-        "path": "academic-requisition"
+        "file": "./dashboard/student-requisition.tsx",
+        "path": "student-requisition"
       }
     }
   },
@@ -197,35 +179,17 @@
         "file": "./dashboard/graduation.tsx",
         "path": "graduation"
       },
-      "dashboard/lecture-cards": {
-        "id": "dashboard/lecture-cards",
-        "parentId": "dashboard/layout",
-        "file": "./dashboard/lecture-cards.tsx",
-        "path": "lecture-cards"
-      },
-      "dashboard/hostel-booking": {
-        "id": "dashboard/hostel-booking",
-        "parentId": "dashboard/layout",
-        "file": "./dashboard/hostel-booking.tsx",
-        "path": "hostel-booking"
-      },
-      "dashboard/suggestion-box": {
-        "id": "dashboard/suggestion-box",
-        "parentId": "dashboard/layout",
-        "file": "./dashboard/suggestion-box.tsx",
-        "path": "suggestion-box"
-      },
       "dashboard/account-management": {
         "id": "dashboard/account-management",
         "parentId": "dashboard/layout",
         "file": "./dashboard/account-management.tsx",
         "path": "account-management"
       },
-      "dashboard/academic-requisition": {
-        "id": "dashboard/academic-requisition",
+      "dashboard/student-requisition": {
+        "id": "dashboard/student-requisition",
         "parentId": "dashboard/layout",
-        "file": "./dashboard/academic-requisition.tsx",
-        "path": "academic-requisition"
+        "file": "./dashboard/student-requisition.tsx",
+        "path": "student-requisition"
       }
     },
     "routeDiscovery": {

@@ -69,15 +69,12 @@ export const clientAction = async ({ request }: Route.ClientActionArgs) => {
 
     if (!safeParse.success) {
       toast.error(safeParse.issues[0].message);
-      console.log({ output: safeParse.issues });
 
       return { issues: safeParse.issues };
     }
 
     if (safeParse.success) {
       const { data, error } = await postStudentInfo(safeParse.output);
-
-      console.log({ data, error });
 
       if (error) toast.error(error);
       if (data) toast.success("You have successfully changed your profile");
@@ -92,8 +89,6 @@ export default function AccountManagement({
   loaderData,
 }: Route.ComponentProps) {
   const { data } = loaderData;
-
-  console.log({ actionData });
 
   // TODO: use arketype
   const accountTabs: TabItem[] = [
@@ -129,8 +124,6 @@ export const StudentDetailsForm = ({
   actionData: any;
 }) => {
   const errors = actionData?.issues ?? {};
-
-  console.log({ errors });
 
   return (
     <div className="grid gap-4 p-4">

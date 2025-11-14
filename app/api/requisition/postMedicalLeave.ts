@@ -1,25 +1,20 @@
 import axios, { AxiosError } from "axios";
 
-import { BOOK_HOSTEL } from "~/api/urls";
-import type { StudentHostel } from "~/lib/store/accomodation.store";
-
 import type { ApiResponse } from "~/lib/types";
 
-export interface BookHostel {
-  hostelNo: string;
-  roomCode: string;
-  floorCode: string;
-  spaceCode: string;
+import { POST_MEDICAL_LEAVE } from "~/api/urls";
+
+export interface PostMedicalLeave {
+  placementHospital: string;
 }
 
-export const bookHostel = async (
-  data: BookHostel
-): Promise<ApiResponse<StudentHostel>> => {
+export const postMedicalLeave = async (
+  data: PostMedicalLeave
+): Promise<ApiResponse<string>> => {
   try {
-    const response = await axios.post(BOOK_HOSTEL, data, {
+    const response = await axios.post(POST_MEDICAL_LEAVE, data, {
       withCredentials: true,
     });
-
     return { data: response.data };
   } catch (err) {
     const error = err as AxiosError<{ error: string; errors: string }>;

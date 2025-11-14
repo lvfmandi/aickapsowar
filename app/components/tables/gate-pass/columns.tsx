@@ -4,11 +4,10 @@ import {
   type CellContext,
   createColumnHelper,
 } from "@tanstack/react-table";
-import { Link } from "react-router";
 import { MoreHorizontal } from "lucide-react";
 
 import { cn } from "~/lib/utils";
-import type { LeaveOutRequisition } from "~/lib/types/requisitions";
+import type { GatePassRequisition } from "~/lib/types/requisitions";
 
 import {
   DropdownMenu,
@@ -22,57 +21,12 @@ import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import { DataTableColumnHeader } from "~/components/tables/utils/column-header";
 
-// export type AcademicRequisition = {
-//   type: string; // e.g., "Academic Leave", "Return from Leave", "Special Exam", etc.
-//   requestedDate: Date;
-//   reason: string;
-//   supportingDocuments: string[]; // could be file URLs or paths
-//   status: "Pending" | "Approved" | "Rejected";
-//   reviewedBy?: string; // optional in case it hasn't been reviewed yet
-//   reviewedAt?: Date; // optional in case it hasn't been reviewed yet
-// };
-
 const dateCell: (
-  props: CellContext<LeaveOutRequisition, unknown>
+  props: CellContext<GatePassRequisition, unknown>
 ) => React.ReactNode = ({ getValue }) => (
   <span className="inline-table font-light">
     {dayjs(getValue() as Date).format("D MMM YYYY") as number | string}
   </span>
-);
-
-const timeCell: (
-  props: CellContext<LeaveOutRequisition, unknown>
-) => React.ReactNode = ({ getValue }) => {
-  const [h, m] = (getValue() as string).split(":");
-  const hours = Number(h);
-  const minutes = m.padStart(2, "0");
-  const ampm = hours >= 12 ? "PM" : "AM";
-  const formatted = `${((hours + 11) % 12) + 1}:${minutes} ${ampm}`;
-
-  return (
-    <span className="inline-table font-light font-mono text-xs">
-      {formatted}
-    </span>
-  );
-};
-
-const fileCell: (
-  props: CellContext<LeaveOutRequisition, unknown>
-) => React.ReactNode = ({ getValue }) => (
-  <Badge asChild variant={"outline"}>
-    <Link
-      to={(getValue() as string[])[0]}
-      className="group !font-light !text-sm"
-    >
-      <span className="flex items-center gap-1">
-        <Icon
-          name="link"
-          className="inline -rotate-45 text-blue-500 group-hover:text-primary"
-        />
-        Document
-      </span>
-    </Link>
-  </Badge>
 );
 
 const statusColors = {
@@ -83,7 +37,7 @@ const statusColors = {
 };
 
 const statusCell: (
-  props: CellContext<LeaveOutRequisition, unknown>
+  props: CellContext<GatePassRequisition, unknown>
 ) => React.ReactNode = ({ getValue }) => (
   <Badge asChild variant={"outline"}>
     <span
@@ -101,7 +55,7 @@ const statusCell: (
 );
 
 const actionsCell: (
-  props: CellContext<LeaveOutRequisition, unknown>
+  props: CellContext<GatePassRequisition, unknown>
 ) => React.ReactNode = ({ row }) => (
   <DropdownMenu>
     <DropdownMenuTrigger asChild>
@@ -122,9 +76,9 @@ const actionsCell: (
     </DropdownMenuContent>
   </DropdownMenu>
 );
-const columnHelper = createColumnHelper<LeaveOutRequisition>();
+const columnHelper = createColumnHelper<GatePassRequisition>();
 
-export const columns: ColumnDef<LeaveOutRequisition, any>[] = [
+export const columns: ColumnDef<GatePassRequisition, any>[] = [
   columnHelper.display({
     id: "actions",
     header: "Actions",
@@ -134,44 +88,50 @@ export const columns: ColumnDef<LeaveOutRequisition, any>[] = [
 
   columnHelper.accessor(
     (row) =>
-      new Date(
-        row.leave_Out_Date.year,
-        row.leave_Out_Date.month - 1,
-        row.leave_Out_Date.day
-      ),
+      new Date(row.date_Out.year, row.date_Out.month - 1, row.date_Out.day),
     {
-      id: "leaveOutDate",
+      id: "requestedDate",
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Leave Out Date" />
+        <DataTableColumnHeader column={column} title="Date Out" />
       ),
       cell: dateCell,
       enableSorting: true,
     }
   ),
 
-  columnHelper.accessor(
-    (row) =>
-      new Date(
-        row.return_Date.year,
-        row.return_Date.month - 1,
-        row.return_Date.day
-      ),
-    {
-      id: "returnDate",
-      header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Return Date" />
-      ),
-      cell: dateCell,
-      enableSorting: true,
-    }
-  ),
-
-  columnHelper.accessor("leave_out_Tme", {
-    id: "leave_out_Tme",
+  columnHelper.accessor("purpose", {
+    id: "purpose",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Leave Out Time" />
+      <DataTableColumnHeader column={column} title="Purpose" />
     ),
-    cell: timeCell,
+    cell: (info) => info.getValue(),
+    enableSorting: true,
+  }),
+
+  columnHelper.accessor("destination", {
+    id: "destination",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Destination" />
+    ),
+    cell: (info) => info.getValue(),
+    enableSorting: true,
+  }),
+
+  columnHelper.accessor("duration", {
+    id: "duration",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Duration" />
+    ),
+    cell: (info) => info.getValue(),
+    enableSorting: true,
+  }),
+
+  columnHelper.accessor("return_Time", {
+    id: "return_Time",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Return Time" />
+    ),
+    cell: (info) => info.getValue(),
     enableSorting: true,
   }),
 
@@ -181,13 +141,5 @@ export const columns: ColumnDef<LeaveOutRequisition, any>[] = [
     ),
     cell: statusCell,
     enableSorting: true,
-  }),
-
-  columnHelper.accessor("reason", {
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Reason" />
-    ),
-    cell: (info) => info.getValue(),
-    enableSorting: false,
   }),
 ];

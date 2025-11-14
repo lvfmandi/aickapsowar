@@ -1,11 +1,11 @@
 import { DataTable } from "~/components/tables/utils/data-table";
-import { columns } from "~/components/tables/academic-requisition/columns";
-import type { LeaveOutRequisition as TypeAcademicRequisition } from "~/lib/types/requisitions";
+import { columns } from "~/components/tables/medical-leave-requisition/columns";
+import type { MedicalLeave } from "~/lib/types/requisitions";
 
-export const AcademicRequisition = ({
+export const MedicalLeaveRequisition = ({
   data = [],
 }: {
-  data?: TypeAcademicRequisition[];
+  data?: MedicalLeave[];
 }) => {
   return (
     <div className="py-4">

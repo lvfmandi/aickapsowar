@@ -42,7 +42,6 @@ export async function clientLoader() {
     return data ? { data, error: noStudentHostel } : { error };
   }
 
-  console.log({ sHostel, noStudentHostel });
   // else we display their current hostel
   return { sHostel };
 }

@@ -12,7 +12,6 @@ import { IconText } from "~/components/utils/icon-text";
 
 export const NavLinks = ({ mobile }: { mobile?: boolean }) => {
   const location = useLocation();
-  console.log({ location });
 
   const navigate = useNavigate();
 

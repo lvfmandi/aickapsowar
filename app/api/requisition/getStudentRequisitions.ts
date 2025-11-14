@@ -3,10 +3,18 @@ import axios, { AxiosError } from "axios";
 import { GET_STUDENT_REQUISITIONS } from "~/api/urls";
 
 import type { ApiResponse } from "~/lib/types";
-import type { AcademicRequisition } from "~/lib/types/requisitions";
+import type {
+  MedicalLeave,
+  LeaveOutRequisition,
+  GatePassRequisition,
+} from "~/lib/types/requisitions";
 
 export const getStudentRequisitions = async (): Promise<
-  ApiResponse<AcademicRequisition[]>
+  ApiResponse<{
+    medicalLeaveList: MedicalLeave[];
+    gatePassList: GatePassRequisition[];
+    leaveOutList: LeaveOutRequisition[];
+  }>
 > => {
   try {
     const response = await axios.get(GET_STUDENT_REQUISITIONS, {

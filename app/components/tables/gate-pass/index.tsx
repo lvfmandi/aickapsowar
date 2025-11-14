@@ -1,11 +1,11 @@
 import { DataTable } from "~/components/tables/utils/data-table";
-import { columns } from "~/components/tables/academic-requisition/columns";
-import type { LeaveOutRequisition as TypeAcademicRequisition } from "~/lib/types/requisitions";
+import { columns } from "~/components/tables/gate-pass/columns";
+import type { GatePassRequisition } from "~/lib/types/requisitions";
 
-export const AcademicRequisition = ({
+export const GatePassTable = ({
   data = [],
 }: {
-  data?: TypeAcademicRequisition[];
+  data?: GatePassRequisition[];
 }) => {
   return (
     <div className="py-4">
