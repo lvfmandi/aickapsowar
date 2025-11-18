@@ -1,18 +1,3 @@
-export const defaultFeesInsights = {
-  "Tuition Fee (Amount)": "0",
-  "Tuition Fee (Paid)": "0",
-  "Tuition Fee (%)": "0",
-  "Hostel Fee (Amount)": "0",
-  "Hostel Fee (Paid)": "0",
-  "Hostel Fee (%)": "0",
-  "Other Charges (Amount)": "0",
-  "Other Charges (Paid)": "0",
-  "Other Charges (%)": "0",
-  "Total Charges (Amount)": "0",
-  "Total Charges (Paid)": "0",
-  "Total Charges (%)": "0",
-};
-
 export const timetableCards = [
   {
     active: true,

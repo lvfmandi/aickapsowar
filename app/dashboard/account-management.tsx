@@ -7,6 +7,7 @@ import { CircleFlag } from "react-circle-flags";
 import { getCountryCode } from "countries-list";
 
 import { fetchMe } from "~/api/auth/fetchMe";
+import { postStudentInfo } from "~/api/accounts/postStudentInfo";
 
 import type { User } from "~/lib/store/auth.store";
 import { AccountSchema } from "~/lib/schemas/account.schema";
@@ -26,10 +27,6 @@ import { TabsUtils, type TabItem } from "~/components/utils/tabs-utils";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { DashbaordContentLayout } from "~/components/dashboard/content-layout";
 import { DesktopNotifications } from "~/components/notifications/desktop-notifications";
-import {
-  postStudentInfo,
-  type PostStudentInfo,
-} from "~/api/accounts/postStudentInfo";
 
 export const clientLoader = async () => {
   const { data, error } = await fetchMe();
@@ -123,8 +120,6 @@ export const StudentDetailsForm = ({
   data?: User;
   actionData: any;
 }) => {
-  const errors = actionData?.issues ?? {};
-
   return (
     <div className="grid gap-4 p-4">
       <div className="flex flex-col gap-4">

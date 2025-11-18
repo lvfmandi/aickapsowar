@@ -58,4 +58,4 @@ export const POST_MEDICAL_LEAVE = "/api/StudentRequisition/postMedicalLeave";
 export const POST_GATE_PASS = "/api/StudentRequisition/postGatePass";
 
 // Utils
-export const GET_FEES_INSIGHTS = "/api/Utils/getfinanceInsights";
+// export const GET_FEES_INSIGHTS = "/api/Utils/getfinanceInsights";

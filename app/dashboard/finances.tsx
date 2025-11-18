@@ -1,53 +1,46 @@
 import { toast } from "sonner";
 
-import { defaultFeesInsights } from "~/lib/dashboard.data";
-import type { FinanceInsights } from "~/lib/types/finance";
-
 import { getReceipts } from "~/api/finance/getReceipts";
 import { getFeeStatement } from "~/api/finance/getFeeStatement";
 import { getFeeStructure } from "~/api/finance/getFeeStructure";
-import { getFinanceInsights } from "~/api/finance/getFinanceInsights";
 
 import type { Route } from "./+types/finances";
 import { Receipts } from "~/components/tables/receipts";
+import { useFinance } from "~/components/hooks/use-finance";
 import { FeeStatement } from "~/components/tables/fee-statement";
 import { FeeStructure } from "~/components/tables/fee-structure";
-import { FinanceCard } from "~/components/dashboard/finance-card";
 import { TabsUtils, type TabItem } from "~/components/utils/tabs-utils";
-import { DashboardCardSection } from "~/components/dashboard/card-section";
 import { DashbaordContentLayout } from "~/components/dashboard/content-layout";
 import { DesktopNotifications } from "~/components/notifications/desktop-notifications";
-import { useFinance } from "~/components/hooks/use-finance";
+import { DashboardCardSection } from "~/components/dashboard/card-section";
+import { FinanceCard } from "~/components/dashboard/finance-card";
+import { useStore } from "~/lib/store/index.store";
 
 export const clientLoader = async ({}: Route.ClientLoaderArgs) => {
   const [
     { data: receipts = [], error: receiptsError },
     { data: feeStatement = [], error: feeStatementError },
     { data: feeStructure = [], error: feeStructureError },
-    { data: feesInsights = defaultFeesInsights, error: feesInsightsError },
+    // { data: feesInsights = defaultFeesInsights, error: feesInsightsError },
   ] = await Promise.all([
     getReceipts(),
     getFeeStatement(),
     getFeeStructure(),
-    getFinanceInsights(),
+    // getFinanceInsights(),
   ]);
 
-  const baseError =
-    receiptsError ??
-    feeStatementError ??
-    feeStructureError ??
-    feesInsightsError;
+  const baseError = receiptsError ?? feeStatementError ?? feeStructureError;
 
   if (baseError) toast.error(baseError);
 
-  return { receipts, feeStatement, feeStructure, feesInsights };
+  return { receipts, feeStatement, feeStructure };
 };
 
 export default function Finances({ loaderData }: Route.ComponentProps) {
-  const { receipts, feeStatement, feeStructure, feesInsights } = loaderData;
-  const { convertFeesToFinanceData } = useFinance();
+  const { user } = useStore.getState();
+  const { receipts, feeStatement, feeStructure } = loaderData;
 
-  const financeData = convertFeesToFinanceData(feesInsights);
+  // const financeData = convertFeesToFinanceData(feesInsights);
 
   const financeTabs: TabItem[] = [
     {
@@ -75,7 +68,7 @@ export default function Finances({ loaderData }: Route.ComponentProps) {
       <DashbaordContentLayout icon="wallet" title="Finances">
         <div className="flex flex-col gap-4 p-4">
           <DashboardCardSection
-            items={financeData}
+            items={[{ label: "Balance", balance: user?.balance || 0 }]}
             itemComponent={FinanceCard}
           />
         </div>

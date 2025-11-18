@@ -1,9 +1,3 @@
-import { toast } from "sonner";
-
-import { getFinanceInsights } from "~/api/finance/getFinanceInsights";
-
-import type { FinanceInsights } from "~/lib/types/finance";
-import { defaultFeesInsights } from "~/lib/dashboard.data";
 import { fetchUnitsData } from "~/lib/data-helpers/units.data";
 import type { ProgramUnit, Stage, StudentUnit } from "~/lib/types/units.d";
 
@@ -15,28 +9,23 @@ import { FinanceCard } from "~/components/dashboard/finance-card";
 import { DashboardCardSection } from "~/components/dashboard/card-section";
 import { DashbaordContentLayout } from "~/components/dashboard/content-layout";
 import { DesktopNotifications } from "~/components/notifications/desktop-notifications";
+import { useStore } from "~/lib/store/index.store";
 
 export async function clientLoader({}: Route.ClientLoaderArgs) {
-  const [unitsInfo, { data: financeInsights, error: financeInsightsError }] =
-    await Promise.all([fetchUnitsData(), getFinanceInsights()]);
-
-  if (financeInsightsError) toast.error(financeInsightsError);
-
-  return { unitsInfo, financeInsights };
+  const unitsInfo = await fetchUnitsData();
+  return { unitsInfo };
 }
 
 export default function Home({ loaderData }: Route.ComponentProps) {
-  const { unitsInfo, financeInsights = defaultFeesInsights } = loaderData as {
+  const { user } = useStore.getState();
+  const { unitsInfo } = loaderData as {
     unitsInfo: {
       stages: Stage[];
       prgmUnits: ProgramUnit[];
       stdtUnits: StudentUnit[];
       confirmRegistration: Stage | null;
     };
-    financeInsights: FinanceInsights;
   };
-  const { convertFeesToFinanceData } = useFinance();
-  const financeData = convertFeesToFinanceData(financeInsights);
 
   const { unitsData } = useUnits(unitsInfo);
 
@@ -47,8 +36,8 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           <DashboardCardSection
             icon={"wallet"}
             title={"Finance"}
-            items={financeData}
             itemComponent={FinanceCard}
+            items={[{ label: "Balance", balance: user?.balance || 0 }]}
           />
           <DashboardCardSection
             icon={"layers"}
@@ -56,12 +45,6 @@ export default function Home({ loaderData }: Route.ComponentProps) {
             items={unitsData}
             itemComponent={UnitsCard}
           />
-          {/* <DashboardCardSection
-            icon={"idCard"}
-            items={lectureCards}
-            title={"Lecture Cards"}
-            itemComponent={LectureCard}
-          /> */}
         </div>
       </DashbaordContentLayout>
       <DesktopNotifications />

@@ -1,18 +1,3 @@
-export type FinanceInsights = {
-  "Tuition Fee (Amount)": string;
-  "Tuition Fee (Paid)": string;
-  "Tuition Fee (%)": string;
-  "Hostel Fee (Amount)": string;
-  "Hostel Fee (Paid)": string;
-  "Hostel Fee (%)": string;
-  "Other Charges (Amount)": string;
-  "Other Charges (Paid)": string;
-  "Other Charges (%)": string;
-  "Total Charges (Amount)": string;
-  "Total Charges (Paid)": string;
-  "Total Charges (%)": string;
-};
-
 export interface FeeStatement {
   entry_No: number;
   transaction_No: number;
